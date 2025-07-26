@@ -48,7 +48,44 @@
             {stockStatus}
           </div>
           <div class="zoom-hint">🔍 Click to zoom</div>
+          
+          <!-- Image Navigation -->
+          <template if:true={hasMultipleImages}>
+            <button 
+              class="image-nav prev"
+              onclick={handlePreviousImage}
+              aria-label="Previous image"
+            >
+              ❮
+            </button>
+            <button 
+              class="image-nav next"
+              onclick={handleNextImage}
+              aria-label="Next image"
+            >
+              ❯
+            </button>
+            <div class="image-counter">{imageCounter}</div>
+          </template>
         </div>
+        
+        <!-- Image Thumbnails -->
+        <template if:true={hasMultipleImages}>
+          <div class="image-thumbnails">
+            <template for:each={thumbnailImages} for:item="thumb">
+              <img
+                key={thumb.index}
+                src={thumb.url}
+                alt="Product view"
+                class="thumbnail-image"
+                data-index={thumb.index}
+                data-active={thumb.isActive}
+                onclick={handleThumbnailClick}
+                aria-label="View image"
+              />
+            </template>
+          </div>
+        </template>
       </div>
       
       <!-- Product Information Section (40% width on desktop) -->

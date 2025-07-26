@@ -9,8 +9,16 @@
       "originalPrice": 4299.00,
       "image": "https://placehold.co/400x300/2196F3/FFFFFF?text=CUBE+Cross+Race",
       "images": {
-        "hydrogenblue": "https://placehold.co/600x400/2196F3/FFFFFF?text=CUBE+Hydrogenblue",
-        "carbon": "https://placehold.co/600x400/424242/FFFFFF?text=CUBE+Carbon"
+        "hydrogenblue": [
+          "https://placehold.co/600x400/2196F3/FFFFFF?text=CUBE+Hydrogenblue+1",
+          "https://placehold.co/600x400/1976D2/FFFFFF?text=CUBE+Hydrogenblue+2",
+          "https://placehold.co/600x400/0D47A1/FFFFFF?text=CUBE+Hydrogenblue+3"
+        ],
+        "carbon": [
+          "https://placehold.co/600x400/424242/FFFFFF?text=CUBE+Carbon+1",
+          "https://placehold.co/600x400/212121/FFFFFF?text=CUBE+Carbon+2",
+          "https://placehold.co/600x400/757575/FFFFFF?text=CUBE+Carbon+3"
+        ]
       },
       "colors": ["hydrogenblue", "carbon"],
       "gearType": "1x12",
@@ -35,8 +43,16 @@
       "price": 3799.99,
       "image": "https://placehold.co/400x300/FF5722/FFFFFF?text=Trek+Fuel+EX",
       "images": {
-        "orange": "https://placehold.co/600x400/FF5722/FFFFFF?text=Trek+Orange",
-        "black": "https://placehold.co/600x400/212121/FFFFFF?text=Trek+Black"
+        "orange": [
+          "https://placehold.co/600x400/FF5722/FFFFFF?text=Trek+Orange+1",
+          "https://placehold.co/600x400/E64100/FFFFFF?text=Trek+Orange+2",
+          "https://placehold.co/600x400/FF3D00/FFFFFF?text=Trek+Orange+3"
+        ],
+        "black": [
+          "https://placehold.co/600x400/212121/FFFFFF?text=Trek+Black+1",
+          "https://placehold.co/600x400/424242/FFFFFF?text=Trek+Black+2",
+          "https://placehold.co/600x400/616161/FFFFFF?text=Trek+Black+3"
+        ]
       },
       "colors": ["orange", "black"],
       "gearType": "12-speed",
@@ -61,8 +77,16 @@
       "price": 2299.99,
       "image": "https://placehold.co/400x300/4CAF50/FFFFFF?text=Giant+Defy",
       "images": {
-        "white": "https://placehold.co/600x400/F5F5F5/000000?text=Giant+White",
-        "blue": "https://placehold.co/600x400/2196F3/FFFFFF?text=Giant+Blue"
+        "white": [
+          "https://placehold.co/600x400/F5F5F5/000000?text=Giant+White+1",
+          "https://placehold.co/600x400/FAFAFA/000000?text=Giant+White+2",
+          "https://placehold.co/600x400/EEEEEE/000000?text=Giant+White+3"
+        ],
+        "blue": [
+          "https://placehold.co/600x400/2196F3/FFFFFF?text=Giant+Blue+1",
+          "https://placehold.co/600x400/1976D2/FFFFFF?text=Giant+Blue+2",
+          "https://placehold.co/600x400/1565C0/FFFFFF?text=Giant+Blue+3"
+        ]
       },
       "colors": ["white", "blue"],
       "gearType": "2x11",
@@ -87,8 +111,16 @@
       "price": 849.99,
       "image": "https://placehold.co/400x300/9C27B0/FFFFFF?text=Specialized+Sirrus",
       "images": {
-        "purple": "https://placehold.co/600x400/9C27B0/FFFFFF?text=Specialized+Purple",
-        "silver": "https://placehold.co/600x400/C0C0C0/000000?text=Specialized+Silver"
+        "purple": [
+          "https://placehold.co/600x400/9C27B0/FFFFFF?text=Specialized+Purple+1",
+          "https://placehold.co/600x400/7B1FA2/FFFFFF?text=Specialized+Purple+2",
+          "https://placehold.co/600x400/6A1B9A/FFFFFF?text=Specialized+Purple+3"
+        ],
+        "silver": [
+          "https://placehold.co/600x400/C0C0C0/000000?text=Specialized+Silver+1",
+          "https://placehold.co/600x400/BDBDBD/000000?text=Specialized+Silver+2",
+          "https://placehold.co/600x400/9E9E9E/000000?text=Specialized+Silver+3"
+        ]
       },
       "colors": ["purple", "silver"],
       "gearType": "1x10",
@@ -113,8 +145,16 @@
       "price": 4299.99,
       "image": "https://placehold.co/400x300/607D8B/FFFFFF?text=Cannondale+NEO",
       "images": {
-        "gray": "https://placehold.co/600x400/607D8B/FFFFFF?text=Cannondale+Gray",
-        "green": "https://placehold.co/600x400/4CAF50/FFFFFF?text=Cannondale+Green"
+        "gray": [
+          "https://placehold.co/600x400/607D8B/FFFFFF?text=Cannondale+Gray+1",
+          "https://placehold.co/600x400/546E7A/FFFFFF?text=Cannondale+Gray+2",
+          "https://placehold.co/600x400/455A64/FFFFFF?text=Cannondale+Gray+3"
+        ],
+        "green": [
+          "https://placehold.co/600x400/4CAF50/FFFFFF?text=Cannondale+Green+1",
+          "https://placehold.co/600x400/388E3C/FFFFFF?text=Cannondale+Green+2",
+          "https://placehold.co/600x400/2E7D32/FFFFFF?text=Cannondale+Green+3"
+        ]
       },
       "colors": ["gray", "green"],
       "gearType": "1x11",
@@ -140,8 +180,16 @@
       "price": 3299.99,
       "image": "https://placehold.co/400x300/795548/FFFFFF?text=Scott+Spark",
       "images": {
-        "brown": "https://placehold.co/600x400/795548/FFFFFF?text=Scott+Brown",
-        "yellow": "https://placehold.co/600x400/FFEB3B/000000?text=Scott+Yellow"
+        "brown": [
+          "https://placehold.co/600x400/795548/FFFFFF?text=Scott+Brown+1",
+          "https://placehold.co/600x400/6D4C41/FFFFFF?text=Scott+Brown+2",
+          "https://placehold.co/600x400/5D4037/FFFFFF?text=Scott+Brown+3"
+        ],
+        "yellow": [
+          "https://placehold.co/600x400/FFEB3B/000000?text=Scott+Yellow+1",
+          "https://placehold.co/600x400/FDD835/000000?text=Scott+Yellow+2",
+          "https://placehold.co/600x400/FBC02D/000000?text=Scott+Yellow+3"
+        ]
       },
       "colors": ["brown", "yellow"],
       "gearType": "1x12",
@@ -164,8 +212,16 @@
       "price": 5299.99,
       "image": "https://placehold.co/400x300/00BCD4/FFFFFF?text=Bianchi+Oltre",
       "images": {
-        "celeste": "https://placehold.co/600x400/00BCD4/FFFFFF?text=Bianchi+Celeste",
-        "black": "https://placehold.co/600x400/212121/FFFFFF?text=Bianchi+Black"
+        "celeste": [
+          "https://placehold.co/600x400/00BCD4/FFFFFF?text=Bianchi+Celeste+1",
+          "https://placehold.co/600x400/00ACC1/FFFFFF?text=Bianchi+Celeste+2",
+          "https://placehold.co/600x400/0097A7/FFFFFF?text=Bianchi+Celeste+3"
+        ],
+        "black": [
+          "https://placehold.co/600x400/212121/FFFFFF?text=Bianchi+Black+1",
+          "https://placehold.co/600x400/424242/FFFFFF?text=Bianchi+Black+2",
+          "https://placehold.co/600x400/616161/FFFFFF?text=Bianchi+Black+3"
+        ]
       },
       "colors": ["celeste", "black"],
       "gearType": "2x11",
@@ -188,8 +244,16 @@
       "price": 4199.99,
       "image": "https://placehold.co/400x300/F44336/FFFFFF?text=Santa+Cruz+Bronson",
       "images": {
-        "red": "https://placehold.co/600x400/F44336/FFFFFF?text=Santa+Cruz+Red",
-        "blue": "https://placehold.co/600x400/2196F3/FFFFFF?text=Santa+Cruz+Blue"
+        "red": [
+          "https://placehold.co/600x400/F44336/FFFFFF?text=Santa+Cruz+Red+1",
+          "https://placehold.co/600x400/E53935/FFFFFF?text=Santa+Cruz+Red+2",
+          "https://placehold.co/600x400/D32F2F/FFFFFF?text=Santa+Cruz+Red+3"
+        ],
+        "blue": [
+          "https://placehold.co/600x400/2196F3/FFFFFF?text=Santa+Cruz+Blue+1",
+          "https://placehold.co/600x400/1976D2/FFFFFF?text=Santa+Cruz+Blue+2",
+          "https://placehold.co/600x400/1565C0/FFFFFF?text=Santa+Cruz+Blue+3"
+        ]
       },
       "colors": ["red", "blue"],
       "gearType": "1x12",
@@ -212,8 +276,16 @@
       "price": 6799.99,
       "image": "https://placehold.co/400x300/673AB7/FFFFFF?text=Cervelo+R5",
       "images": {
-        "purple": "https://placehold.co/600x400/673AB7/FFFFFF?text=Cervelo+Purple",
-        "white": "https://placehold.co/600x400/F5F5F5/000000?text=Cervelo+White"
+        "purple": [
+          "https://placehold.co/600x400/673AB7/FFFFFF?text=Cervelo+Purple+1",
+          "https://placehold.co/600x400/5E35B1/FFFFFF?text=Cervelo+Purple+2",
+          "https://placehold.co/600x400/512DA8/FFFFFF?text=Cervelo+Purple+3"
+        ],
+        "white": [
+          "https://placehold.co/600x400/F5F5F5/000000?text=Cervelo+White+1",
+          "https://placehold.co/600x400/FAFAFA/000000?text=Cervelo+White+2",
+          "https://placehold.co/600x400/EEEEEE/000000?text=Cervelo+White+3"
+        ]
       },
       "colors": ["purple", "white"],
       "gearType": "2x12",
@@ -236,8 +308,16 @@
       "price": 699.99,
       "image": "https://placehold.co/400x300/8BC34A/FFFFFF?text=Kona+Dew",
       "images": {
-        "green": "https://placehold.co/600x400/8BC34A/FFFFFF?text=Kona+Green",
-        "orange": "https://placehold.co/600x400/FF9800/FFFFFF?text=Kona+Orange"
+        "green": [
+          "https://placehold.co/600x400/8BC34A/FFFFFF?text=Kona+Green+1",
+          "https://placehold.co/600x400/7CB342/FFFFFF?text=Kona+Green+2",
+          "https://placehold.co/600x400/689F38/FFFFFF?text=Kona+Green+3"
+        ],
+        "orange": [
+          "https://placehold.co/600x400/FF9800/FFFFFF?text=Kona+Orange+1",
+          "https://placehold.co/600x400/F57C00/FFFFFF?text=Kona+Orange+2",
+          "https://placehold.co/600x400/EF6C00/FFFFFF?text=Kona+Orange+3"
+        ]
       },
       "colors": ["green", "orange"],
       "gearType": "1x9",
@@ -260,8 +340,16 @@
       "price": 3799.99,
       "image": "https://placehold.co/400x300/FF9800/FFFFFF?text=Haibike+XDURO",
       "images": {
-        "orange": "https://placehold.co/600x400/FF9800/FFFFFF?text=Haibike+Orange",
-        "black": "https://placehold.co/600x400/212121/FFFFFF?text=Haibike+Black"
+        "orange": [
+          "https://placehold.co/600x400/FF9800/FFFFFF?text=Haibike+Orange+1",
+          "https://placehold.co/600x400/F57C00/FFFFFF?text=Haibike+Orange+2",
+          "https://placehold.co/600x400/EF6C00/FFFFFF?text=Haibike+Orange+3"
+        ],
+        "black": [
+          "https://placehold.co/600x400/212121/FFFFFF?text=Haibike+Black+1",
+          "https://placehold.co/600x400/424242/FFFFFF?text=Haibike+Black+2",
+          "https://placehold.co/600x400/616161/FFFFFF?text=Haibike+Black+3"
+        ]
       },
       "colors": ["orange", "black"],
       "gearType": "1x11",
@@ -285,8 +373,16 @@
       "price": 8999.99,
       "image": "https://placehold.co/400x300/E91E63/FFFFFF?text=Pinarello+Dogma",
       "images": {
-        "pink": "https://placehold.co/600x400/E91E63/FFFFFF?text=Pinarello+Pink",
-        "black": "https://placehold.co/600x400/212121/FFFFFF?text=Pinarello+Black"
+        "pink": [
+          "https://placehold.co/600x400/E91E63/FFFFFF?text=Pinarello+Pink+1",
+          "https://placehold.co/600x400/D81B60/FFFFFF?text=Pinarello+Pink+2",
+          "https://placehold.co/600x400/C2185B/FFFFFF?text=Pinarello+Pink+3"
+        ],
+        "black": [
+          "https://placehold.co/600x400/212121/FFFFFF?text=Pinarello+Black+1",
+          "https://placehold.co/600x400/424242/FFFFFF?text=Pinarello+Black+2",
+          "https://placehold.co/600x400/616161/FFFFFF?text=Pinarello+Black+3"
+        ]
       },
       "colors": ["pink", "black"],
       "gearType": "2x12",

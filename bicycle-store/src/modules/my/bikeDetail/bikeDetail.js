@@ -5,6 +5,7 @@ export default class BikeDetail extends LightningElement {
   selectedColor = '';
   quantity = 1;
   isImageZoomed = false;
+  currentImageIndex = 0;
   
   connectedCallback() {
     if (this.bike?.colors?.length > 0) {
@@ -14,6 +15,7 @@ export default class BikeDetail extends LightningElement {
   
   handleColorChange(event) {
     this.selectedColor = event.target.value;
+    this.currentImageIndex = 0; // Reset to first image when color changes
   }
   
   handleQuantityChange(event) {
@@ -58,12 +60,38 @@ export default class BikeDetail extends LightningElement {
     this.isImageZoomed = false;
   }
   
-  get currentImage() {
-    // Use color-specific image if available, fallback to default image
-    if (this.bike?.images && this.selectedColor && this.bike.images[this.selectedColor]) {
-      return this.bike.images[this.selectedColor];
+  handlePreviousImage() {
+    const images = this.currentImages;
+    if (images.length > 1) {
+      this.currentImageIndex = this.currentImageIndex === 0 ? images.length - 1 : this.currentImageIndex - 1;
     }
-    return this.bike?.image || 'https://placehold.co/600x400';
+  }
+  
+  handleNextImage() {
+    const images = this.currentImages;
+    if (images.length > 1) {
+      this.currentImageIndex = this.currentImageIndex === images.length - 1 ? 0 : this.currentImageIndex + 1;
+    }
+  }
+  
+  handleThumbnailClick(event) {
+    const index = parseInt(event.target.dataset.index, 10);
+    this.currentImageIndex = index;
+  }
+  
+  get currentImages() {
+    // Get all images for the selected color
+    if (this.bike?.images && this.selectedColor && this.bike.images[this.selectedColor]) {
+      const colorImages = this.bike.images[this.selectedColor];
+      return Array.isArray(colorImages) ? colorImages : [colorImages];
+    }
+    return [this.bike?.image || 'https://placehold.co/600x400'];
+  }
+  
+  get currentImage() {
+    // Get the currently selected image from the gallery
+    const images = this.currentImages;
+    return images[this.currentImageIndex] || images[0] || this.bike?.image || 'https://placehold.co/600x400';
   }
   
   get formattedPrice() {
@@ -142,5 +170,21 @@ export default class BikeDetail extends LightningElement {
   
   get zoomModalClass() {
     return this.isImageZoomed ? 'zoom-modal show' : 'zoom-modal';
+  }
+  
+  get hasMultipleImages() {
+    return this.currentImages.length > 1;
+  }
+  
+  get thumbnailImages() {
+    return this.currentImages.map((image, index) => ({
+      url: image,
+      index: index,
+      isActive: index === this.currentImageIndex
+    }));
+  }
+  
+  get imageCounter() {
+    return `${this.currentImageIndex + 1} / ${this.currentImages.length}`;
   }
 }
