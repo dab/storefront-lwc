@@ -6,8 +6,8 @@
           <h2 class="slds-card__header-title">
             <button
               class="slds-button slds-button_reset slds-text-heading_small"
-              onclick="{handleToggleCart}"
-              aria-expanded="{isExpanded}"
+              onclick={handleToggleCart}
+              aria-expanded={isExpanded}
             >
               <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
                 <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#cart"></use>
@@ -22,9 +22,9 @@
       </header>
     </div>
 
-    <template if:true="{isExpanded}">
+    <template if:true={isExpanded}>
       <div class="slds-card__body slds-card__body_inner">
-        <template if:true="{isEmpty}">
+        <template if:true={isEmpty}>
           <div class="slds-text-align_center slds-p-vertical_large">
             <svg class="slds-icon slds-icon_large slds-icon-text-default" aria-hidden="true">
               <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#cart"></use>
@@ -36,13 +36,13 @@
           </div>
         </template>
 
-        <template if:false="{isEmpty}">
+        <template if:false={isEmpty}>
           <div class="slds-feed">
-            <template for:each="{cartItemsWithFormatting}" for:item="item">
-              <article key="{item.cartId}" class="slds-feed__item">
+            <template for:each={cartItemsWithFormatting} for:item="item">
+              <article key={item.cartId} class="slds-feed__item">
                 <div class="slds-media">
                   <div class="slds-media__figure">
-                    <img src="{item.image}" alt="{item.name}" class="cart-item-image" />
+                    <img src={item.image} alt={item.name} class="cart-item-image" />
                   </div>
                   <div class="slds-media__body">
                     <div class="slds-grid slds-grid_align-spread">
@@ -55,18 +55,16 @@
                       </div>
                       <div class="slds-col slds-no-flex">
                         <div class="slds-form-element slds-form-element_small">
-                          <label class="slds-form-element__label" for="{item.quantityId}"
-                            >Qty</label
-                          >
+                          <label class="slds-form-element__label" for={item.quantityId}>Qty</label>
                           <div class="slds-form-element__control">
                             <input
-                              id="{item.quantityId}"
+                              id={item.quantityId}
                               type="number"
                               min="1"
                               max="10"
-                              value="{item.quantity}"
-                              data-cart-id="{item.cartId}"
-                              onchange="{handleQuantityChange}"
+                              value={item.quantity}
+                              data-cart-id={item.cartId}
+                              onchange={handleQuantityChange}
                               class="slds-input quantity-input"
                             />
                           </div>
@@ -83,8 +81,8 @@
                       <div class="slds-col slds-no-flex">
                         <button
                           class="slds-button slds-button_text-destructive"
-                          data-cart-id="{item.cartId}"
-                          onclick="{handleRemoveItem}"
+                          data-cart-id={item.cartId}
+                          onclick={handleRemoveItem}
                         >
                           Remove
                         </button>
@@ -98,7 +96,7 @@
         </template>
       </div>
 
-      <template if:false="{isEmpty}">
+      <template if:false={isEmpty}>
         <footer class="slds-card__footer">
           <div class="slds-grid slds-grid_align-spread">
             <div class="slds-col">

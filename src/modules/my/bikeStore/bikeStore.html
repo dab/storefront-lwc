@@ -1,23 +1,19 @@
 <template>
-  <div
-    class="bike-store"
-    onview_product_detail="{handleViewProductDetail}"
-    onback_to_store="{handleBackToStore}"
-  >
+  <div class="bike-store">
     <!-- Product Detail View -->
-    <template if:true="{isDetailView}">
+    <template if:true={isDetailView}>
       <my-bike-detail
-        bike="{selectedBike}"
-        onadd_to_cart="{handleAddToCart}"
-        onback_to_store="{handleBackToStore}"
+        bike={selectedBike}
+        onadd_to_cart={handleAddToCart}
+        onback_to_store={handleBackToStore}
       >
       </my-bike-detail>
     </template>
 
     <!-- Store View -->
-    <template if:true="{isStoreView}">
+    <template if:true={isStoreView}>
       <!-- Error Message -->
-      <template if:true="{showError}">
+      <template if:true={showError}>
         <div
           class="slds-notify slds-notify_alert slds-alert_error slds-m-bottom_medium"
           role="alert"
@@ -31,8 +27,8 @@
       <div class="mobile-filter-header">
         <button
           class="slds-button slds-button_brand mobile-filter-toggle"
-          onclick="{handleToggleMobileFilters}"
-          aria-expanded="{showMobileFilters}"
+          onclick={handleToggleMobileFilters}
+          aria-expanded={showMobileFilters}
         >
           🔍 {mobileFilterButtonText}
         </button>
@@ -40,18 +36,18 @@
 
       <div class="store-layout">
         <!-- Filter Panel Sidebar -->
-        <aside class="filter-panel" data-mobile-hidden="{showMobileFilters}">
+        <aside class="filter-panel" data-mobile-hidden={showMobileFilters}>
           <div class="slds-card">
             <div class="slds-card__header slds-grid">
               <header class="slds-media slds-media_center slds-has-flexi-truncate">
                 <div class="slds-media__body">
                   <h2 class="slds-card__header-title slds-text-heading_small">Filters</h2>
                 </div>
-                <template if:true="{hasActiveFilters}">
+                <template if:true={hasActiveFilters}>
                   <div class="slds-no-flex">
                     <button
                       class="slds-button slds-button_text-destructive"
-                      onclick="{handleClearAllFilters}"
+                      onclick={handleClearAllFilters}
                     >
                       Clear All
                     </button>
@@ -62,22 +58,22 @@
 
             <div class="slds-card__body slds-card__body_inner">
               <my-bike-filters
-                bikes="{bikes}"
-                active-filters="{activeFilters}"
-                show-mobile="{showMobileFilters}"
-                onfilterchange="{handleFilterChange}"
-                onclearfilter="{handleClearFilter}"
-                onclearallfilters="{handleClearAllFilters}"
+                bikes={bikes}
+                active-filters={activeFilters}
+                show-mobile={showMobileFilters}
+                onfilterchange={handleFilterChange}
+                onclearfilter={handleClearFilter}
+                onclearallfilters={handleClearAllFilters}
               >
               </my-bike-filters>
             </div>
 
             <!-- Mobile Filter Close Button -->
-            <template if:true="{showMobileFilters}">
+            <template if:true={showMobileFilters}>
               <footer class="slds-card__footer">
                 <button
                   class="slds-button slds-button_brand slds-button_stretch"
-                  onclick="{handleToggleMobileFilters}"
+                  onclick={handleToggleMobileFilters}
                 >
                   Apply Filters
                 </button>
@@ -100,13 +96,9 @@
               <div class="slds-form-element">
                 <label class="slds-form-element__label" for="sort-select">Sort by:</label>
                 <div class="slds-form-element__control">
-                  <select id="sort-select" class="slds-select" onchange="{handleSortChange}">
-                    <template for:each="{sortOptions}" for:item="option">
-                      <option
-                        key="{option.value}"
-                        value="{option.value}"
-                        selected="{option.selected}"
-                      >
+                  <select id="sort-select" class="slds-select" onchange={handleSortChange}>
+                    <template for:each={sortOptions} for:item="option">
+                      <option key={option.value} value={option.value} selected={option.selected}>
                         {option.label}
                       </option>
                     </template>
@@ -118,18 +110,18 @@
 
           <!-- Product Grid -->
           <div class="slds-grid slds-wrap slds-grid_pull-padded-medium">
-            <template for:each="{displayedBikes}" for:item="bike">
+            <template for:each={displayedBikes} for:item="bike">
               <div
-                key="{bike.id}"
+                key={bike.id}
                 class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3 slds-p-around_medium"
               >
-                <my-bike-card bike="{bike}" onadd_to_cart="{handleAddToCart}"> </my-bike-card>
+                <my-bike-card bike={bike} onadd_to_cart={handleAddToCart}> </my-bike-card>
               </div>
             </template>
           </div>
 
           <!-- No Results -->
-          <template if:false="{filteredBikes.length}">
+          <template if:false={filteredBikes.length}>
             <div class="slds-align_absolute-center slds-p-around_xx-large">
               <div class="slds-text-align_center">
                 <svg class="slds-icon slds-icon_large slds-icon-text-light" aria-hidden="true">
@@ -141,10 +133,10 @@
                 <p class="slds-text-body_regular slds-text-color_weak">
                   Try adjusting your filter criteria to see more results.
                 </p>
-                <template if:true="{hasActiveFilters}">
+                <template if:true={hasActiveFilters}>
                   <button
                     class="slds-button slds-button_brand slds-m-top_medium"
-                    onclick="{handleClearAllFilters}"
+                    onclick={handleClearAllFilters}
                   >
                     Clear All Filters
                   </button>
@@ -155,28 +147,28 @@
 
           <!-- Pagination Component -->
           <my-bike-pagination
-            current-page="{currentPage}"
-            total-items="{filteredBikes.length}"
-            items-per-page="{itemsPerPage}"
-            onnavigate="{handlePageNavigation}"
+            current-page={currentPage}
+            total-items={filteredBikes.length}
+            items-per-page={itemsPerPage}
+            onnavigate={handlePageNavigation}
           >
           </my-bike-pagination>
         </main>
       </div>
 
       <!-- Mobile Filter Overlay -->
-      <template if:true="{showMobileFilters}">
-        <div class="mobile-filter-overlay" onclick="{handleToggleMobileFilters}"></div>
+      <template if:true={showMobileFilters}>
+        <div class="mobile-filter-overlay" onclick={handleToggleMobileFilters}></div>
       </template>
     </template>
 
     <!-- Cart Summary (Fixed Position) -->
     <div class="cart-summary-fixed">
       <my-cart-summary
-        cart-items="{cartState.items}"
-        cart-total="{cartState.total}"
-        cart-count="{cartState.count}"
-        onupdate_cart="{handleUpdateCart}"
+        cart-items={cartState.items}
+        cart-total={cartState.total}
+        cart-count={cartState.count}
+        onupdate_cart={handleUpdateCart}
       >
       </my-cart-summary>
     </div>

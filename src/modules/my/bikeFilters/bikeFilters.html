@@ -5,9 +5,9 @@
     <div class="slds-form-element slds-m-bottom_medium">
       <label class="slds-form-element__label" for="type-filter">Bike Type</label>
       <div class="slds-form-element__control">
-        <select id="type-filter" name="type" class="slds-select" onchange="{handleFilterChange}">
-          <template for:each="{typeOptions}" for:item="option">
-            <option key="{option.value}" value="{option.value}" selected="{option.selected}">
+        <select id="type-filter" name="type" class="slds-select" onchange={handleFilterChange}>
+          <template for:each={typeOptions} for:item="option">
+            <option key={option.value} value={option.value} selected={option.selected}>
               {option.label}
             </option>
           </template>
@@ -19,9 +19,9 @@
     <div class="slds-form-element slds-m-bottom_medium">
       <label class="slds-form-element__label" for="brand-filter">Brand</label>
       <div class="slds-form-element__control">
-        <select id="brand-filter" name="brand" class="slds-select" onchange="{handleFilterChange}">
-          <template for:each="{brandOptions}" for:item="option">
-            <option key="{option.value}" value="{option.value}" selected="{option.selected}">
+        <select id="brand-filter" name="brand" class="slds-select" onchange={handleFilterChange}>
+          <template for:each={brandOptions} for:item="option">
+            <option key={option.value} value={option.value} selected={option.selected}>
               {option.label}
             </option>
           </template>
@@ -42,8 +42,8 @@
             name="minPrice"
             class="slds-input"
             placeholder="Min"
-            value="{activeFilters.priceRange.min}"
-            onchange="{handleFilterChange}"
+            value={activeFilters.priceRange.min}
+            onchange={handleFilterChange}
           />
         </div>
         <div class="slds-col slds-p-horizontal_x-small">
@@ -52,8 +52,8 @@
             name="maxPrice"
             class="slds-input"
             placeholder="Max"
-            value="{activeFilters.priceRange.max}"
-            onchange="{handleFilterChange}"
+            value={activeFilters.priceRange.max}
+            onchange={handleFilterChange}
           />
         </div>
       </div>
@@ -61,17 +61,17 @@
   </div>
 
   <!-- Active Filters -->
-  <template if:true="{hasActiveFilters}">
+  <template if:true={hasActiveFilters}>
     <div class="slds-m-top_medium">
       <h3 class="slds-text-heading_x-small slds-m-bottom_x-small">Active Filters</h3>
-      <template for:each="{activeFiltersList}" for:item="filter">
-        <span key="{filter.key}" class="slds-pill slds-m-bottom_x-small slds-m-right_x-small">
+      <template for:each={activeFiltersList} for:item="filter">
+        <span key={filter.key} class="slds-pill slds-m-bottom_x-small slds-m-right_x-small">
           <span class="slds-pill__label">{filter.label}</span>
           <button
             class="slds-button slds-button_icon slds-button_icon slds-pill__remove"
             title="Remove"
-            data-filter="{filter.key}"
-            onclick="{handleClearFilter}"
+            data-filter={filter.key}
+            onclick={handleClearFilter}
           >
             ×
             <span class="slds-assistive-text">Remove</span>
