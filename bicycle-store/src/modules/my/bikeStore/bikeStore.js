@@ -4,13 +4,13 @@ export default class BikeStore extends LightningElement {
   bikes = [];
   filteredBikes = [];
   displayedBikes = [];
-  cartItems = [];
+  @track cartItems = [];
   @track cartTotal = 0;
   
   @track activeFilters = {
     type: '',
     brand: '',
-    priceRange: { min: 0, max: 5000 }
+    priceRange: { min: 0, max: 10000 }
   };
   
   sortBy = 'popularity';
@@ -25,9 +25,8 @@ export default class BikeStore extends LightningElement {
   currentPage = 1;
   
   connectedCallback() {
-    this.loadBikes();
-    this.loadCartFromStorage();
     this.setupBrowserNavigation();
+    this.loadBikes();
   }
   
   disconnectedCallback() {
@@ -72,11 +71,19 @@ export default class BikeStore extends LightningElement {
       const data = await response.json();
       this.bikes = data.bikes || [];
       this.applyFiltersAndSort();
+      // Load cart after bikes are loaded so we can fix image references
+      this.loadCartFromStorage();
+      // Fix any existing cart items with incorrect images
+      this.refreshCartImages();
     } catch (error) {
       console.error('Error loading bikes:', error);
       // Fallback to sample data if static file fails
       this.bikes = this.getSampleBikes();
       this.applyFiltersAndSort();
+      // Load cart after bikes are loaded so we can fix image references
+      this.loadCartFromStorage();
+      // Fix any existing cart items with incorrect images
+      this.refreshCartImages();
     }
   }
   
@@ -124,13 +131,18 @@ export default class BikeStore extends LightningElement {
     
     if (!bike) return;
     
+    // Get color-specific image
+    const colorSpecificImage = this.getColorSpecificImage(bike, selectedColor);
+    
     // Create new array reference for reactivity
     const newItem = { 
       ...bike, 
       selectedColor, 
       quantity, 
       cartId: Date.now(),
-      lineTotal: bike.price * quantity
+      lineTotal: bike.price * quantity,
+      // Override default image with color-specific image
+      image: colorSpecificImage
     };
     
     this.cartItems = [...this.cartItems, newItem];
@@ -238,7 +250,7 @@ export default class BikeStore extends LightningElement {
   }
   
   handleMaxPriceChange(event) {
-    const maxPrice = parseInt(event.target.value, 10) || 5000;
+    const maxPrice = parseInt(event.target.value, 10) || 10000;
     this.activeFilters = {
       ...this.activeFilters,
       priceRange: {
@@ -270,7 +282,7 @@ export default class BikeStore extends LightningElement {
     this.activeFilters = {
       type: '',
       brand: '',
-      priceRange: { min: 0, max: 5000 }
+      priceRange: { min: 0, max: 10000 }
     };
     this.applyFiltersAndSort();
   }
@@ -281,7 +293,7 @@ export default class BikeStore extends LightningElement {
     if (filterType === 'priceRange') {
       this.activeFilters = {
         ...this.activeFilters,
-        priceRange: { min: 0, max: 5000 }
+        priceRange: { min: 0, max: 10000 }
       };
     } else {
       this.activeFilters = {
@@ -413,7 +425,7 @@ export default class BikeStore extends LightningElement {
     let count = 0;
     if (this.activeFilters.type) count++;
     if (this.activeFilters.brand) count++;
-    if (this.activeFilters.priceRange.min > 0 || this.activeFilters.priceRange.max < 5000) count++;
+    if (this.activeFilters.priceRange.min > 0 || this.activeFilters.priceRange.max < 10000) count++;
     return count;
   }
   
@@ -428,7 +440,7 @@ export default class BikeStore extends LightningElement {
   }
   
   get maxPrice() {
-    return Math.max(...this.bikes.map(bike => bike.price), 5000);
+    return Math.max(...this.bikes.map(bike => bike.price), 10000);
   }
   
   // View management computed properties
@@ -503,11 +515,20 @@ export default class BikeStore extends LightningElement {
       const saved = localStorage.getItem('bikestore_cart');
       const loadedItems = saved ? JSON.parse(saved) : [];
       
-      // Ensure line totals are calculated for loaded items
-      this.cartItems = loadedItems.map(item => ({
-        ...item,
-        lineTotal: item.price * item.quantity
-      }));
+      // Ensure line totals are calculated and images are correct for loaded items
+      this.cartItems = loadedItems.map(item => {
+        // Find the original bike data to get correct color-specific image
+        const originalBike = this.bikes.find(bike => bike.id === item.id);
+        const correctImage = originalBike ? 
+          this.getColorSpecificImage(originalBike, item.selectedColor) : 
+          item.image;
+          
+        return {
+          ...item,
+          lineTotal: item.price * item.quantity,
+          image: correctImage
+        };
+      });
       
       this.calculateCartTotal();
     } catch (error) {
@@ -525,6 +546,31 @@ export default class BikeStore extends LightningElement {
       setTimeout(() => {
         cartElement.classList.remove('cart-updated');
       }, 300);
+    }
+  }
+  
+  getColorSpecificImage(bike, selectedColor) {
+    // Get color-specific image if available, fallback to default image
+    if (bike?.images && selectedColor && bike.images[selectedColor]) {
+      const colorImages = bike.images[selectedColor];
+      // Use first image from array if it's an array, otherwise use as string
+      return Array.isArray(colorImages) ? colorImages[0] : colorImages;
+    }
+    return bike?.image || 'https://placehold.co/300x200';
+  }
+  
+  refreshCartImages() {
+    // Fix any existing cart items that may have incorrect images
+    if (this.cartItems.length > 0 && this.bikes.length > 0) {
+      this.cartItems = this.cartItems.map(item => {
+        const originalBike = this.bikes.find(bike => bike.id === item.id);
+        if (originalBike) {
+          const correctImage = this.getColorSpecificImage(originalBike, item.selectedColor);
+          return { ...item, image: correctImage };
+        }
+        return item;
+      });
+      this.saveCartToStorage();
     }
   }
 }
