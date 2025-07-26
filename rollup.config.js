@@ -27,14 +27,22 @@ export default {
     lwc(),
     copy({
       targets: [
+        // Copy only the CSS file we need
         {
-          src: 'node_modules/@salesforce-ux/design-system/assets/**/*',
-          dest: 'dist/assets',
+          src: 'node_modules/@salesforce-ux/design-system/assets/styles/salesforce-lightning-design-system.min.css',
+          dest: 'dist/assets/styles',
         },
+        // Copy only the icon sprite files we use
+        {
+          src: 'node_modules/@salesforce-ux/design-system/assets/icons/utility-sprite/svg/symbols.svg',
+          dest: 'dist/assets/icons/utility-sprite/svg',
+        },
+        // Copy our custom assets (bikes.json and any custom files)
         {
           src: 'src/assets/**/*',
           dest: 'dist/assets',
         },
+        // Copy the HTML file
         {
           src: 'src/index.html',
           dest: 'dist',
