@@ -35,6 +35,10 @@ export default {
           src: 'src/assets/**/*',
           dest: 'dist/assets',
         },
+        {
+          src: 'src/index.html',
+          dest: 'dist',
+        },
       ],
     }),
     !isProduction &&
