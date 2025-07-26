@@ -41,7 +41,6 @@
       "type": "mountain",
       "brand": "Trek",
       "price": 3799.99,
-      "image": "https://placehold.co/400x300/FF5722/FFFFFF?text=Trek+Fuel+EX",
       "images": {
         "orange": [
           "https://placehold.co/600x400/FF5722/FFFFFF?text=Trek+Orange+1",
@@ -75,7 +74,6 @@
       "type": "road",
       "brand": "Giant", 
       "price": 2299.99,
-      "image": "https://placehold.co/400x300/4CAF50/FFFFFF?text=Giant+Defy",
       "images": {
         "white": [
           "https://placehold.co/600x400/F5F5F5/000000?text=Giant+White+1",
@@ -109,7 +107,6 @@
       "type": "hybrid",
       "brand": "Specialized",
       "price": 849.99,
-      "image": "https://placehold.co/400x300/9C27B0/FFFFFF?text=Specialized+Sirrus",
       "images": {
         "purple": [
           "https://placehold.co/600x400/9C27B0/FFFFFF?text=Specialized+Purple+1",
@@ -143,7 +140,6 @@
       "type": "electric",
       "brand": "Cannondale",
       "price": 4299.99,
-      "image": "https://placehold.co/400x300/607D8B/FFFFFF?text=Cannondale+NEO",
       "images": {
         "gray": [
           "https://placehold.co/600x400/607D8B/FFFFFF?text=Cannondale+Gray+1",
@@ -178,7 +174,6 @@
       "type": "mountain",
       "brand": "Scott",
       "price": 3299.99,
-      "image": "https://placehold.co/400x300/795548/FFFFFF?text=Scott+Spark",
       "images": {
         "brown": [
           "https://placehold.co/600x400/795548/FFFFFF?text=Scott+Brown+1",
@@ -210,7 +205,6 @@
       "type": "road",
       "brand": "Bianchi",
       "price": 5299.99,
-      "image": "https://placehold.co/400x300/00BCD4/FFFFFF?text=Bianchi+Oltre",
       "images": {
         "celeste": [
           "https://placehold.co/600x400/00BCD4/FFFFFF?text=Bianchi+Celeste+1",
@@ -242,7 +236,6 @@
       "type": "mountain",
       "brand": "Santa Cruz",
       "price": 4199.99,
-      "image": "https://placehold.co/400x300/F44336/FFFFFF?text=Santa+Cruz+Bronson",
       "images": {
         "red": [
           "https://placehold.co/600x400/F44336/FFFFFF?text=Santa+Cruz+Red+1",
@@ -274,7 +267,6 @@
       "type": "road",
       "brand": "Cervélo",
       "price": 6799.99,
-      "image": "https://placehold.co/400x300/673AB7/FFFFFF?text=Cervelo+R5",
       "images": {
         "purple": [
           "https://placehold.co/600x400/673AB7/FFFFFF?text=Cervelo+Purple+1",
@@ -306,7 +298,6 @@
       "type": "hybrid",
       "brand": "Kona",
       "price": 699.99,
-      "image": "https://placehold.co/400x300/8BC34A/FFFFFF?text=Kona+Dew",
       "images": {
         "green": [
           "https://placehold.co/600x400/8BC34A/FFFFFF?text=Kona+Green+1",
@@ -338,7 +329,6 @@
       "type": "electric",
       "brand": "Haibike",
       "price": 3799.99,
-      "image": "https://placehold.co/400x300/FF9800/FFFFFF?text=Haibike+XDURO",
       "images": {
         "orange": [
           "https://placehold.co/600x400/FF9800/FFFFFF?text=Haibike+Orange+1",
@@ -371,7 +361,6 @@
       "type": "road",
       "brand": "Pinarello",
       "price": 8999.99,
-      "image": "https://placehold.co/400x300/E91E63/FFFFFF?text=Pinarello+Dogma",
       "images": {
         "pink": [
           "https://placehold.co/600x400/E91E63/FFFFFF?text=Pinarello+Pink+1",
