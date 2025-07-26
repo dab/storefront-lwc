@@ -90,7 +90,7 @@ export default class BikeStore extends LightningElement {
 
   async loadBikes() {
     try {
-      const response = await fetch('/assets/bikes.json');
+      const response = await fetch('./assets/bikes.json');
       const data = await response.json();
       this.bikes = data.bikes || [];
       this.applyFiltersAndSort();
