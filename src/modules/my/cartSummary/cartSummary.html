@@ -5,7 +5,7 @@
         <div class="slds-media__body">
           <h2 class="slds-card__header-title">
             <button
-              class="slds-button slds-button_reset slds-text-heading_small"
+              class="slds-button slds-button_reset slds-text-heading_small cart-toggle-button"
               onclick={handleToggleCart}
               aria-expanded={isExpanded}
             >
@@ -13,6 +13,7 @@
                 <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#cart"></use>
               </svg>
               {cartSummaryText}
+              <span class="toggle-indicator slds-m-left_x-small">{toggleButtonText}</span>
             </button>
           </h2>
         </div>
@@ -22,7 +23,7 @@
       </header>
     </div>
 
-    <template if:true={isExpanded}>
+    <div class={expandedClass}>
       <div class="slds-card__body slds-card__body_inner">
         <template if:true={isEmpty}>
           <div class="slds-text-align_center slds-p-vertical_large">
@@ -108,6 +109,6 @@
           </div>
         </footer>
       </template>
-    </template>
+    </div>
   </div>
 </template>
