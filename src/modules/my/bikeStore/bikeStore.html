@@ -115,7 +115,12 @@
                 key={bike.id}
                 class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3 slds-p-around_medium"
               >
-                <my-bike-card bike={bike} onadd_to_cart={handleAddToCart}> </my-bike-card>
+                <my-bike-card
+                  bike={bike}
+                  onadd_to_cart={handleAddToCart}
+                  onview_product_detail={handleViewProductDetail}
+                >
+                </my-bike-card>
               </div>
             </template>
           </div>
