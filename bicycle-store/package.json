@@ -1,0 +1,56 @@
+{
+  "name": "bicycle-store",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "rollup -c -w",
+    "build": "NODE_ENV=production rollup -c",
+    "lint": "eslint src/ --ext .js",
+    "lint:fix": "eslint src/ --ext .js --fix",
+    "format": "prettier --write \"src/**/*.{js,html,css}\"",
+    "prepare": "husky",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "dependencies": {
+    "@lwc/engine-dom": "^8.20.1",
+    "@lwc/synthetic-shadow": "^8.20.1",
+    "@salesforce-ux/design-system": "^2.27.2",
+    "lwc": "^8.20.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/eslint-parser": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
+    "@eslint/js": "^9.32.0",
+    "@lwc/eslint-plugin-lwc": "^3.1.0",
+    "@lwc/rollup-plugin": "^8.20.1",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-replace": "^6.0.2",
+    "eslint": "^9.32.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prettier": "^5.5.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "prettier": "^3.6.2",
+    "rollup": "^4.45.1",
+    "rollup-plugin-livereload": "^2.0.5",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-serve": "^3.0.0"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{html,css}": [
+      "prettier --write"
+    ]
+  }
+}

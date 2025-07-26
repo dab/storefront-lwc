@@ -1,0 +1,189 @@
+.bike-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.bike-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.bike-image-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.bike-image-container:hover {
+  transform: scale(1.02);
+}
+
+.bike-image-container:focus {
+  outline: 2px solid #2196f3;
+  outline-offset: 2px;
+}
+
+.bike-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.bike-image.clickable {
+  cursor: pointer;
+}
+
+.stock-available,
+.stock-unavailable {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.stock-available {
+  background-color: #4caf50;
+  color: white;
+}
+
+.stock-unavailable {
+  background-color: #f44336;
+  color: white;
+}
+
+.bike-details {
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.bike-name {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  line-height: 1.3;
+}
+
+.bike-name.clickable {
+  cursor: pointer;
+  color: #2196f3;
+  transition: color 0.2s ease;
+}
+
+.bike-name.clickable:hover {
+  color: #1976d2;
+  text-decoration: underline;
+}
+
+.bike-name.clickable:focus {
+  outline: 2px solid #2196f3;
+  outline-offset: 2px;
+}
+
+.bike-brand {
+  margin: 0 0 0.25rem 0;
+  color: #666;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.bike-type,
+.bike-gear {
+  margin: 0 0 0.25rem 0;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.price-section {
+  margin: 1rem 0;
+}
+
+.bike-price {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #2196f3;
+}
+
+.color-selection {
+  margin-bottom: 1rem;
+}
+
+.color-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.color-select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background-color: white;
+}
+
+.color-select:focus {
+  outline: none;
+  border-color: #2196f3;
+  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+}
+
+.add-to-cart-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: auto;
+  min-height: 44px; /* Touch-friendly minimum */
+}
+
+.add-to-cart-btn:hover:not(:disabled) {
+  background-color: #1976d2;
+}
+
+.add-to-cart-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.add-to-cart-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.5);
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .bike-card {
+    transition: none;
+  }
+  
+  .add-to-cart-btn {
+    transition: none;
+  }
+}

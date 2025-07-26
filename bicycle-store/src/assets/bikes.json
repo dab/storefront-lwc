@@ -1,0 +1,265 @@
+{
+  "bikes": [
+    {
+      "id": "cube-cross-race",
+      "name": "CUBE CROSS RACE C:62X TE",
+      "type": "cyclocross",
+      "brand": "CUBE",
+      "price": 4006.51,
+      "originalPrice": 4299.00,
+      "image": "https://placehold.co/400x300/2196F3/FFFFFF?text=CUBE+Cross+Race",
+      "images": {
+        "hydrogenblue": "https://placehold.co/600x400/2196F3/FFFFFF?text=CUBE+Hydrogenblue",
+        "carbon": "https://placehold.co/600x400/424242/FFFFFF?text=CUBE+Carbon"
+      },
+      "colors": ["hydrogenblue", "carbon"],
+      "gearType": "1x12",
+      "frameSize": ["56", "58", "60", "62"],
+      "inStock": true,
+      "deliveryTime": "5-13 working days",
+      "description": "Carbon Cyclocross Bike - 2025 - hydrogenblue / carbon",
+      "popularity": 85,
+      "releaseDate": "2024-09-15",
+      "specs": {
+        "frame": "Carbon",
+        "weight": "8.2 kg",
+        "wheelSize": "700c",
+        "brakes": "Disc"
+      }
+    },
+    {
+      "id": "trek-mountain-fuel",
+      "name": "Trek Fuel EX 9.8",
+      "type": "mountain",
+      "brand": "Trek",
+      "price": 3799.99,
+      "image": "https://placehold.co/400x300/FF5722/FFFFFF?text=Trek+Fuel+EX",
+      "images": {
+        "orange": "https://placehold.co/600x400/FF5722/FFFFFF?text=Trek+Orange",
+        "black": "https://placehold.co/600x400/212121/FFFFFF?text=Trek+Black"
+      },
+      "colors": ["orange", "black"],
+      "gearType": "12-speed",
+      "frameSize": ["M", "L", "XL"],
+      "inStock": true,
+      "deliveryTime": "3-7 working days",
+      "description": "Full suspension mountain bike with carbon frame",
+      "popularity": 92,
+      "releaseDate": "2024-08-01",
+      "specs": {
+        "frame": "Carbon",
+        "weight": "13.2 kg",
+        "wheelSize": "29",
+        "brakes": "Hydraulic Disc"
+      }
+    },
+    {
+      "id": "giant-road-defy",
+      "name": "Giant Defy Advanced 2",
+      "type": "road",
+      "brand": "Giant", 
+      "price": 2299.99,
+      "image": "https://placehold.co/400x300/4CAF50/FFFFFF?text=Giant+Defy",
+      "colors": ["white", "blue"],
+      "gearType": "2x11",
+      "frameSize": ["S", "M", "L"],
+      "inStock": true,
+      "deliveryTime": "2-5 working days",
+      "description": "Endurance road bike with advanced composite frame",
+      "popularity": 78,
+      "releaseDate": "2024-06-20",
+      "specs": {
+        "frame": "Composite",
+        "weight": "8.9 kg",
+        "wheelSize": "700c",
+        "brakes": "Rim"
+      }
+    },
+    {
+      "id": "specialized-hybrid-sirrus",
+      "name": "Specialized Sirrus X 3.0",
+      "type": "hybrid",
+      "brand": "Specialized",
+      "price": 849.99,
+      "image": "https://placehold.co/400x300/9C27B0/FFFFFF?text=Specialized+Sirrus",
+      "colors": ["purple", "silver"],
+      "gearType": "1x10",
+      "frameSize": ["S", "M", "L", "XL"],
+      "inStock": true,
+      "deliveryTime": "1-3 working days",
+      "description": "Versatile hybrid bike for city and trail riding",
+      "popularity": 88,
+      "releaseDate": "2024-10-01",
+      "specs": {
+        "frame": "Aluminum",
+        "weight": "12.1 kg",
+        "wheelSize": "700c",
+        "brakes": "Disc"
+      }
+    },
+    {
+      "id": "cannondale-electric-neo",
+      "name": "Cannondale Synapse NEO 2",
+      "type": "electric",
+      "brand": "Cannondale",
+      "price": 4299.99,
+      "image": "https://placehold.co/400x300/607D8B/FFFFFF?text=Cannondale+NEO",
+      "colors": ["gray", "green"],
+      "gearType": "1x11",
+      "frameSize": ["M", "L"],
+      "inStock": false,
+      "deliveryTime": "14-21 working days",
+      "description": "Electric road bike with Bosch motor system",
+      "popularity": 76,
+      "releaseDate": "2024-07-10",
+      "specs": {
+        "frame": "Carbon",
+        "weight": "15.8 kg",
+        "wheelSize": "700c",
+        "brakes": "Hydraulic Disc",
+        "battery": "500Wh"
+      }
+    },
+    {
+      "id": "scott-mountain-spark",
+      "name": "Scott Spark 970",
+      "type": "mountain",
+      "brand": "Scott",
+      "price": 3299.99,
+      "image": "https://placehold.co/400x300/795548/FFFFFF?text=Scott+Spark",
+      "colors": ["brown", "yellow"],
+      "gearType": "1x12",
+      "frameSize": ["M", "L", "XL"],
+      "inStock": true,
+      "deliveryTime": "7-10 working days",
+      "description": "Cross-country mountain bike with full suspension",
+      "specs": {
+        "frame": "Carbon",
+        "weight": "12.8 kg",
+        "wheelSize": "29",
+        "brakes": "Hydraulic Disc"
+      }
+    },
+    {
+      "id": "bianchi-road-oltre",
+      "name": "Bianchi Oltre XR4",
+      "type": "road",
+      "brand": "Bianchi",
+      "price": 5299.99,
+      "image": "https://placehold.co/400x300/00BCD4/FFFFFF?text=Bianchi+Oltre",
+      "colors": ["celeste", "black"],
+      "gearType": "2x11",
+      "frameSize": ["53", "55", "57", "59"],
+      "inStock": true,
+      "deliveryTime": "10-14 working days",
+      "description": "Premium racing bike with aerodynamic frame",
+      "specs": {
+        "frame": "Carbon",
+        "weight": "7.8 kg",
+        "wheelSize": "700c",
+        "brakes": "Rim"
+      }
+    },
+    {
+      "id": "santa-cruz-mountain-bronson",
+      "name": "Santa Cruz Bronson",
+      "type": "mountain",
+      "brand": "Santa Cruz",
+      "price": 4199.99,
+      "image": "https://placehold.co/400x300/F44336/FFFFFF?text=Santa+Cruz+Bronson",
+      "colors": ["red", "blue"],
+      "gearType": "1x12",
+      "frameSize": ["M", "L", "XL"],
+      "inStock": true,
+      "deliveryTime": "14-21 working days",
+      "description": "Aggressive trail bike for technical terrain",
+      "specs": {
+        "frame": "Carbon",
+        "weight": "14.1 kg",
+        "wheelSize": "27.5",
+        "brakes": "Hydraulic Disc"
+      }
+    },
+    {
+      "id": "cervelo-road-r5",
+      "name": "Cervélo R5",
+      "type": "road",
+      "brand": "Cervélo",
+      "price": 6799.99,
+      "image": "https://placehold.co/400x300/673AB7/FFFFFF?text=Cervelo+R5",
+      "colors": ["purple", "white"],
+      "gearType": "2x12",
+      "frameSize": ["51", "54", "56", "58"],
+      "inStock": false,
+      "deliveryTime": "21-28 working days",
+      "description": "Professional grade climbing bike",
+      "specs": {
+        "frame": "Carbon",
+        "weight": "7.2 kg",
+        "wheelSize": "700c",
+        "brakes": "Disc"
+      }
+    },
+    {
+      "id": "kona-hybrid-dew",
+      "name": "Kona Dew Plus",
+      "type": "hybrid",
+      "brand": "Kona",
+      "price": 699.99,
+      "image": "https://placehold.co/400x300/8BC34A/FFFFFF?text=Kona+Dew",
+      "colors": ["green", "orange"],
+      "gearType": "1x9",
+      "frameSize": ["S", "M", "L"],
+      "inStock": true,
+      "deliveryTime": "1-3 working days",
+      "description": "Urban commuter bike with comfort geometry",
+      "specs": {
+        "frame": "Aluminum",
+        "weight": "11.8 kg",
+        "wheelSize": "700c",
+        "brakes": "V-brake"
+      }
+    },
+    {
+      "id": "haibike-electric-xduro",
+      "name": "Haibike XDURO AllMtn 3.0",
+      "type": "electric",
+      "brand": "Haibike",
+      "price": 3799.99,
+      "image": "https://placehold.co/400x300/FF9800/FFFFFF?text=Haibike+XDURO",
+      "colors": ["orange", "black"],
+      "gearType": "1x11",
+      "frameSize": ["M", "L", "XL"],
+      "inStock": true,
+      "deliveryTime": "7-14 working days",
+      "description": "Electric mountain bike with Yamaha motor",
+      "specs": {
+        "frame": "Aluminum",
+        "weight": "21.2 kg",
+        "wheelSize": "27.5",
+        "brakes": "Hydraulic Disc",
+        "battery": "500Wh"
+      }
+    },
+    {
+      "id": "pinarello-road-dogma",
+      "name": "Pinarello Dogma F12",
+      "type": "road",
+      "brand": "Pinarello",
+      "price": 8999.99,
+      "image": "https://placehold.co/400x300/E91E63/FFFFFF?text=Pinarello+Dogma",
+      "colors": ["pink", "black"],
+      "gearType": "2x12",
+      "frameSize": ["50", "53", "55", "57"],
+      "inStock": false,
+      "deliveryTime": "28-35 working days",
+      "description": "Tour de France winning bike technology",
+      "specs": {
+        "frame": "Carbon",
+        "weight": "7.4 kg",
+        "wheelSize": "700c",
+        "brakes": "Disc"
+      }
+    }
+  ]
+}

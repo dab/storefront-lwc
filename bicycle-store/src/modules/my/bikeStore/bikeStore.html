@@ -1,0 +1,191 @@
+<template>
+  <div class="bike-store" onview_product_detail={handleViewProductDetail} onback_to_store={handleBackToStore}>
+    
+    <!-- Product Detail View -->
+    <template if:true={isDetailView}>
+      <my-bike-detail 
+        bike={selectedBike}
+        onadd_to_cart={handleAddToCart}
+        onback_to_store={handleBackToStore}>
+      </my-bike-detail>
+    </template>
+    
+    <!-- Store View -->
+    <template if:true={isStoreView}>
+    <!-- Mobile Filter Button -->
+    <div class="mobile-filter-header">
+      <button 
+        class="mobile-filter-toggle"
+        onclick={handleToggleMobileFilters}
+        aria-expanded={showMobileFilters}
+      >
+        {mobileFilterButtonText}
+      </button>
+    </div>
+
+    <div class="store-layout">
+      <!-- Filter Panel -->
+      <aside class="filter-panel" data-mobile-hidden={showMobileFilters}>
+        <div class="filter-header">
+          <h3>Filters</h3>
+          <template if:true={hasActiveFilters}>
+            <button class="clear-all-btn" onclick={handleClearFilters}>
+              Clear All
+            </button>
+          </template>
+        </div>
+        
+        <!-- Type Filter -->
+        <div class="filter-group">
+          <label class="filter-label">Bike Type</label>
+          <select 
+            class="filter-select"
+            onchange={handleTypeFilter}
+          >
+            <template for:each={typeOptions} for:item="option">
+              <option key={option.value} value={option.value} selected={option.selected}>
+                {option.label}
+              </option>
+            </template>
+          </select>
+        </div>
+        
+        <!-- Brand Filter -->
+        <div class="filter-group">
+          <label class="filter-label">Brand</label>
+          <select 
+            class="filter-select"
+            onchange={handleBrandFilter}
+          >
+            <template for:each={brandOptions} for:item="option">
+              <option key={option.value} value={option.value} selected={option.selected}>
+                {option.label}
+              </option>
+            </template>
+          </select>
+        </div>
+        
+        <!-- Price Range Filter -->
+        <div class="filter-group">
+          <label class="filter-label">
+            Price Range: ${activeFilters.priceRange.min} - ${activeFilters.priceRange.max}
+          </label>
+          <div class="price-range-inputs">
+            <input 
+              type="number"
+              class="price-input"
+              placeholder="Min"
+              value={activeFilters.priceRange.min}
+              min="0"
+              max={maxPrice}
+              onchange={handleMinPriceChange}
+            />
+            <span class="price-separator">to</span>
+            <input 
+              type="number"
+              class="price-input"
+              placeholder="Max"
+              value={activeFilters.priceRange.max}
+              min="0"
+              max={maxPrice}
+              onchange={handleMaxPriceChange}
+            />
+          </div>
+        </div>
+        
+        <!-- Mobile Filter Close Button -->
+        <template if:true={showMobileFilters}>
+          <button class="mobile-filter-close" onclick={handleToggleMobileFilters}>
+            Apply Filters
+          </button>
+        </template>
+      </aside>
+      
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Product Header -->
+        <div class="product-header">
+          <div class="product-info">
+            <h2>Available Bicycles</h2>
+            <p class="product-count">{filteredBikes.length} products</p>
+          </div>
+          
+          <!-- Sort Controls -->
+          <div class="sort-controls">
+            <label class="sort-label">Sort by:</label>
+            <select 
+              class="sort-select"
+              onchange={handleSortChange}
+            >
+              <template for:each={sortOptions} for:item="option">
+                <option key={option.value} value={option.value} selected={option.selected}>
+                  {option.label}
+                </option>
+              </template>
+            </select>
+          </div>
+        </div>
+        
+        <!-- Active Filters Display -->
+        <template if:true={hasActiveFilters}>
+          <div class="active-filters">
+            <template if:true={activeFilters.type}>
+              <span class="filter-tag">
+                Type: {activeFilters.type}
+                <button class="filter-remove" data-filter="type" onclick={handleRemoveFilter}>×</button>
+              </span>
+            </template>
+            <template if:true={activeFilters.brand}>
+              <span class="filter-tag">
+                Brand: {activeFilters.brand}
+                <button class="filter-remove" data-filter="brand" onclick={handleRemoveFilter}>×</button>
+              </span>
+            </template>
+          </div>
+        </template>
+        
+        <!-- Product Grid -->
+        <div class="bikes-grid">
+          <template for:each={filteredBikes} for:item="bike">
+            <div key={bike.id} class="bike-card-container">
+              <my-bike-card 
+                bike={bike}
+                onadd_to_cart={handleAddToCart}>
+              </my-bike-card>
+            </div>
+          </template>
+        </div>
+        
+        <!-- No Results Message -->
+        <template if:false={filteredBikes.length}>
+          <div class="no-results">
+            <div class="no-results-icon">🔍</div>
+            <h3>No bikes match your filters</h3>
+            <p>Try adjusting your filter criteria to see more results.</p>
+            <template if:true={hasActiveFilters}>
+              <button class="clear-filters-btn" onclick={handleClearFilters}>
+                Clear All Filters
+              </button>
+            </template>
+          </div>
+        </template>
+      </main>
+    </div>
+    
+    <!-- Mobile Filter Overlay -->
+    <template if:true={showMobileFilters}>
+      <div class="mobile-filter-overlay" onclick={handleToggleMobileFilters}></div>
+    </template>
+    </template><!-- End Store View -->
+    
+    <!-- Cart Summary (Always Visible) -->
+    <div class="cart-summary-fixed">
+      <my-cart-summary
+        cart-items={cartItems}
+        cart-total={cartTotal}
+        cart-count={cartCount}
+        onupdate_cart={handleUpdateCart}>
+      </my-cart-summary>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,151 @@
+<template>
+  <div class="bike-detail-container">
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+      <ol class="breadcrumb-list">
+        <li class="breadcrumb-item">
+          <button 
+            class="breadcrumb-link" 
+            onclick={handleBackToStore}
+            aria-label="Go back to store"
+          >
+            Home
+          </button>
+        </li>
+        <li class="breadcrumb-separator" aria-hidden="true">></li>
+        <li class="breadcrumb-item">
+          <button 
+            class="breadcrumb-link" 
+            onclick={handleBackToStore}
+            aria-label="Go back to bicycles"
+          >
+            Bicycles
+          </button>
+        </li>
+        <li class="breadcrumb-separator" aria-hidden="true">></li>
+        <li class="breadcrumb-item current" aria-current="page">
+          {bike.name}
+        </li>
+      </ol>
+    </nav>
+    
+    <!-- Product Detail Content -->
+    <div class="product-detail-layout">
+      <!-- Product Image Section (60% width on desktop) -->
+      <div class="product-image-section">
+        <div class="product-image-container">
+          <img 
+            src={currentImage} 
+            alt={bike.name}
+            class="product-image"
+          />
+          <div class={stockClass}>
+            {stockStatus}
+          </div>
+        </div>
+      </div>
+      
+      <!-- Product Information Section (40% width on desktop) -->
+      <div class="product-info-section">
+        <div class="product-header">
+          <h1 class="product-name">{bike.name}</h1>
+          <p class="product-brand">{bike.brand}</p>
+          <p class="product-type">{bike.type} bike</p>
+        </div>
+        
+        <div class="price-section">
+          <template if:true={hasDiscount}>
+            <span class="original-price">{formattedOriginalPrice}</span>
+          </template>
+          <span class="current-price">{formattedPrice}</span>
+        </div>
+        
+        <div class="delivery-info">
+          <p class="delivery-time">
+            <strong>Delivery:</strong> {deliveryTime}
+          </p>
+        </div>
+        
+        <!-- Color Selection -->
+        <div class="selection-section">
+          <label class="selection-label">Color:</label>
+          <select 
+            class="selection-input"
+            onchange={handleColorChange}
+            aria-label="Select color"
+          >
+            <template for:each={colorOptions} for:item="option">
+              <option key={option.value} value={option.value} selected={option.selected}>
+                {option.label}
+              </option>
+            </template>
+          </select>
+        </div>
+        
+        <!-- Quantity Selection -->
+        <div class="selection-section">
+          <label class="selection-label">Quantity:</label>
+          <select 
+            class="selection-input quantity-select"
+            onchange={handleQuantityChange}
+            aria-label="Select quantity"
+          >
+            <template for:each={quantityOptions} for:item="option">
+              <option key={option.value} value={option.value} selected={option.selected}>
+                {option.label}
+              </option>
+            </template>
+          </select>
+        </div>
+        
+        <!-- Add to Cart Button -->
+        <template if:true={isOutOfStock}>
+          <button 
+            class="add-to-cart-btn out-of-stock"
+            disabled
+            aria-label="Product out of stock"
+          >
+            Out of Stock
+          </button>
+        </template>
+        
+        <template if:false={isOutOfStock}>
+          <button 
+            class="add-to-cart-btn"
+            onclick={handleAddToCart}
+            aria-label="Add to cart"
+          >
+            Add to Cart
+          </button>
+        </template>
+        
+        <!-- Product Specifications -->
+        <div class="specifications-section">
+          <h2 class="section-title">Specifications</h2>
+          <dl class="specifications-list">
+            <div class="spec-item">
+              <dt class="spec-label">Gear Type:</dt>
+              <dd class="spec-value">{bike.gearType}</dd>
+            </div>
+            <div class="spec-item">
+              <dt class="spec-label">Frame Sizes:</dt>
+              <dd class="spec-value">{frameSize}</dd>
+            </div>
+            <template for:each={specifications} for:item="spec">
+              <div key={spec.label} class="spec-item">
+                <dt class="spec-label">{spec.label}:</dt>
+                <dd class="spec-value">{spec.value}</dd>
+              </div>
+            </template>
+          </dl>
+        </div>
+        
+        <!-- Customer Reviews Placeholder -->
+        <div class="reviews-section">
+          <h2 class="section-title">Customer Reviews</h2>
+          <p class="reviews-placeholder">Customer reviews coming soon...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
