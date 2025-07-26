@@ -3,6 +3,7 @@ import { LightningElement, track } from 'lwc';
 export default class BikeStore extends LightningElement {
   bikes = [];
   filteredBikes = [];
+  displayedBikes = [];
   cartItems = [];
   @track cartTotal = 0;
   
@@ -18,6 +19,10 @@ export default class BikeStore extends LightningElement {
   // View management
   currentView = 'store'; // 'store' or 'detail'
   selectedBikeId = null;
+  
+  // Pagination
+  itemsPerPage = 6;
+  currentPage = 1;
   
   connectedCallback() {
     this.loadBikes();
@@ -178,6 +183,9 @@ export default class BikeStore extends LightningElement {
         } : item
       );
     }
+    
+    this.calculateCartTotal();
+    this.saveCartToStorage();
   }
   
   // Removed getter - now using @track cartTotal property
@@ -312,8 +320,38 @@ export default class BikeStore extends LightningElement {
     // Apply sorting
     filtered = this.sortBikes(filtered);
     
-    // Update filtered bikes
+    // Update filtered bikes and reset pagination
     this.filteredBikes = filtered;
+    this.currentPage = 1;
+    this.updateDisplayedBikes();
+  }
+  
+  updateDisplayedBikes() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.displayedBikes = this.filteredBikes.slice(startIndex, endIndex);
+  }
+  
+  handlePreviousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updateDisplayedBikes();
+    }
+  }
+  
+  handleNextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updateDisplayedBikes();
+    }
+  }
+  
+  handlePageSelect(event) {
+    const page = parseInt(event.target.dataset.page, 10);
+    if (page !== this.currentPage) {
+      this.currentPage = page;
+      this.updateDisplayedBikes();
+    }
   }
   
   sortBikes(bikes) {
@@ -405,6 +443,44 @@ export default class BikeStore extends LightningElement {
   get selectedBike() {
     if (!this.selectedBikeId) return null;
     return this.bikes.find(bike => bike.id === this.selectedBikeId);
+  }
+  
+  // Pagination computed properties
+  get totalPages() {
+    return Math.ceil(this.filteredBikes.length / this.itemsPerPage);
+  }
+  
+  get hasPreviousPage() {
+    return this.currentPage > 1;
+  }
+  
+  get hasNextPage() {
+    return this.currentPage < this.totalPages;
+  }
+  
+  get canGoPrevious() {
+    return !this.hasPreviousPage;
+  }
+  
+  get canGoNext() {
+    return !this.hasNextPage;
+  }
+  
+  get pageNumbers() {
+    const pages = [];
+    for (let i = 1; i <= this.totalPages; i++) {
+      pages.push({
+        number: i,
+        isCurrentPage: i === this.currentPage
+      });
+    }
+    return pages;
+  }
+  
+  get paginationInfo() {
+    const startItem = (this.currentPage - 1) * this.itemsPerPage + 1;
+    const endItem = Math.min(this.currentPage * this.itemsPerPage, this.filteredBikes.length);
+    return `Showing ${startItem}-${endItem} of ${this.filteredBikes.length} bikes`;
   }
   
   // Cart persistence methods

@@ -108,6 +108,9 @@
           <div class="product-info">
             <h2>Available Bicycles</h2>
             <p class="product-count">{filteredBikes.length} products</p>
+            <template if:true={totalPages}>
+              <p class="pagination-info">{paginationInfo}</p>
+            </template>
           </div>
           
           <!-- Sort Controls -->
@@ -146,7 +149,7 @@
         
         <!-- Product Grid -->
         <div class="bikes-grid">
-          <template for:each={filteredBikes} for:item="bike">
+          <template for:each={displayedBikes} for:item="bike">
             <div key={bike.id} class="bike-card-container">
               <my-bike-card 
                 bike={bike}
@@ -155,6 +158,43 @@
             </div>
           </template>
         </div>
+        
+        <!-- Pagination -->
+        <template if:true={totalPages}>
+          <div class="pagination">
+              <button 
+                class="pagination-btn prev"
+                onclick={handlePreviousPage}
+                disabled={canGoPrevious}
+                aria-label="Previous page"
+              >
+                ← Previous
+              </button>
+              
+              <div class="pagination-numbers">
+                <template for:each={pageNumbers} for:item="page">
+                  <button 
+                    key={page.number}
+                    class="pagination-number"
+                    data-page={page.number}
+                    onclick={handlePageSelect}
+                    aria-current={page.isCurrentPage}
+                  >
+                    {page.number}
+                  </button>
+                </template>
+              </div>
+              
+              <button 
+                class="pagination-btn next"
+                onclick={handleNextPage}
+                disabled={canGoNext}
+                aria-label="Next page"
+              >
+                Next →
+              </button>
+            </div>
+        </template>
         
         <!-- No Results Message -->
         <template if:false={filteredBikes.length}>
