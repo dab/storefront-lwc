@@ -60,6 +60,10 @@
       "brand": "Giant", 
       "price": 2299.99,
       "image": "https://placehold.co/400x300/4CAF50/FFFFFF?text=Giant+Defy",
+      "images": {
+        "white": "https://placehold.co/600x400/F5F5F5/000000?text=Giant+White",
+        "blue": "https://placehold.co/600x400/2196F3/FFFFFF?text=Giant+Blue"
+      },
       "colors": ["white", "blue"],
       "gearType": "2x11",
       "frameSize": ["S", "M", "L"],
@@ -82,6 +86,10 @@
       "brand": "Specialized",
       "price": 849.99,
       "image": "https://placehold.co/400x300/9C27B0/FFFFFF?text=Specialized+Sirrus",
+      "images": {
+        "purple": "https://placehold.co/600x400/9C27B0/FFFFFF?text=Specialized+Purple",
+        "silver": "https://placehold.co/600x400/C0C0C0/000000?text=Specialized+Silver"
+      },
       "colors": ["purple", "silver"],
       "gearType": "1x10",
       "frameSize": ["S", "M", "L", "XL"],
@@ -104,6 +112,10 @@
       "brand": "Cannondale",
       "price": 4299.99,
       "image": "https://placehold.co/400x300/607D8B/FFFFFF?text=Cannondale+NEO",
+      "images": {
+        "gray": "https://placehold.co/600x400/607D8B/FFFFFF?text=Cannondale+Gray",
+        "green": "https://placehold.co/600x400/4CAF50/FFFFFF?text=Cannondale+Green"
+      },
       "colors": ["gray", "green"],
       "gearType": "1x11",
       "frameSize": ["M", "L"],
@@ -127,6 +139,10 @@
       "brand": "Scott",
       "price": 3299.99,
       "image": "https://placehold.co/400x300/795548/FFFFFF?text=Scott+Spark",
+      "images": {
+        "brown": "https://placehold.co/600x400/795548/FFFFFF?text=Scott+Brown",
+        "yellow": "https://placehold.co/600x400/FFEB3B/000000?text=Scott+Yellow"
+      },
       "colors": ["brown", "yellow"],
       "gearType": "1x12",
       "frameSize": ["M", "L", "XL"],
@@ -147,6 +163,10 @@
       "brand": "Bianchi",
       "price": 5299.99,
       "image": "https://placehold.co/400x300/00BCD4/FFFFFF?text=Bianchi+Oltre",
+      "images": {
+        "celeste": "https://placehold.co/600x400/00BCD4/FFFFFF?text=Bianchi+Celeste",
+        "black": "https://placehold.co/600x400/212121/FFFFFF?text=Bianchi+Black"
+      },
       "colors": ["celeste", "black"],
       "gearType": "2x11",
       "frameSize": ["53", "55", "57", "59"],
@@ -167,6 +187,10 @@
       "brand": "Santa Cruz",
       "price": 4199.99,
       "image": "https://placehold.co/400x300/F44336/FFFFFF?text=Santa+Cruz+Bronson",
+      "images": {
+        "red": "https://placehold.co/600x400/F44336/FFFFFF?text=Santa+Cruz+Red",
+        "blue": "https://placehold.co/600x400/2196F3/FFFFFF?text=Santa+Cruz+Blue"
+      },
       "colors": ["red", "blue"],
       "gearType": "1x12",
       "frameSize": ["M", "L", "XL"],
@@ -187,6 +211,10 @@
       "brand": "Cervélo",
       "price": 6799.99,
       "image": "https://placehold.co/400x300/673AB7/FFFFFF?text=Cervelo+R5",
+      "images": {
+        "purple": "https://placehold.co/600x400/673AB7/FFFFFF?text=Cervelo+Purple",
+        "white": "https://placehold.co/600x400/F5F5F5/000000?text=Cervelo+White"
+      },
       "colors": ["purple", "white"],
       "gearType": "2x12",
       "frameSize": ["51", "54", "56", "58"],
@@ -207,6 +235,10 @@
       "brand": "Kona",
       "price": 699.99,
       "image": "https://placehold.co/400x300/8BC34A/FFFFFF?text=Kona+Dew",
+      "images": {
+        "green": "https://placehold.co/600x400/8BC34A/FFFFFF?text=Kona+Green",
+        "orange": "https://placehold.co/600x400/FF9800/FFFFFF?text=Kona+Orange"
+      },
       "colors": ["green", "orange"],
       "gearType": "1x9",
       "frameSize": ["S", "M", "L"],
@@ -227,6 +259,10 @@
       "brand": "Haibike",
       "price": 3799.99,
       "image": "https://placehold.co/400x300/FF9800/FFFFFF?text=Haibike+XDURO",
+      "images": {
+        "orange": "https://placehold.co/600x400/FF9800/FFFFFF?text=Haibike+Orange",
+        "black": "https://placehold.co/600x400/212121/FFFFFF?text=Haibike+Black"
+      },
       "colors": ["orange", "black"],
       "gearType": "1x11",
       "frameSize": ["M", "L", "XL"],
@@ -248,6 +284,10 @@
       "brand": "Pinarello",
       "price": 8999.99,
       "image": "https://placehold.co/400x300/E91E63/FFFFFF?text=Pinarello+Dogma",
+      "images": {
+        "pink": "https://placehold.co/600x400/E91E63/FFFFFF?text=Pinarello+Pink",
+        "black": "https://placehold.co/600x400/212121/FFFFFF?text=Pinarello+Black"
+      },
       "colors": ["pink", "black"],
       "gearType": "2x12",
       "frameSize": ["50", "53", "55", "57"],

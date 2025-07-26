@@ -53,8 +53,10 @@ export default class BikeCard extends LightningElement {
   }
   
   get currentImage() {
-    // For now, return the main image
-    // In future, this could be dynamic based on selected color
+    // Use color-specific image if available, fallback to default image
+    if (this.bike?.images && this.selectedColor && this.bike.images[this.selectedColor]) {
+      return this.bike.images[this.selectedColor];
+    }
     return this.bike?.image || 'https://placehold.co/300x200';
   }
   
