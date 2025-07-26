@@ -33,15 +33,21 @@
     <div class="product-detail-layout">
       <!-- Product Image Section (60% width on desktop) -->
       <div class="product-image-section">
-        <div class="product-image-container">
+        <div class={imageContainerClass}>
           <img 
             src={currentImage} 
             alt={bike.name}
             class="product-image"
+            onclick={handleImageClick}
+            onkeydown={handleImageKeyDown}
+            tabindex="0"
+            aria-label="Click to zoom image"
+            title="Click to zoom"
           />
           <div class={stockClass}>
             {stockStatus}
           </div>
+          <div class="zoom-hint">🔍 Click to zoom</div>
         </div>
       </div>
       
@@ -147,5 +153,25 @@
         </div>
       </div>
     </div>
+    
+    <!-- Image Zoom Modal -->
+    <template if:true={isImageZoomed}>
+      <div class={zoomModalClass} onclick={handleZoomClose}>
+        <div class="zoom-content">
+          <img 
+            src={currentImage} 
+            alt={bike.name}
+            class="zoom-image"
+          />
+          <button 
+            class="zoom-close"
+            onclick={handleZoomClose}
+            aria-label="Close zoom"
+          >
+            ×
+          </button>
+        </div>
+      </div>
+    </template>
   </div>
 </template>

@@ -4,6 +4,7 @@ export default class BikeDetail extends LightningElement {
   @api bike;
   selectedColor = '';
   quantity = 1;
+  isImageZoomed = false;
   
   connectedCallback() {
     if (this.bike?.colors?.length > 0) {
@@ -40,6 +41,21 @@ export default class BikeDetail extends LightningElement {
     });
     
     this.dispatchEvent(backEvent);
+  }
+  
+  handleImageClick() {
+    this.isImageZoomed = !this.isImageZoomed;
+  }
+  
+  handleImageKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.handleImageClick();
+    }
+  }
+  
+  handleZoomClose() {
+    this.isImageZoomed = false;
   }
   
   get currentImage() {
@@ -118,5 +134,13 @@ export default class BikeDetail extends LightningElement {
       value: i + 1,
       selected: this.quantity === (i + 1)
     }));
+  }
+  
+  get imageContainerClass() {
+    return this.isImageZoomed ? 'product-image-container zoomed' : 'product-image-container';
+  }
+  
+  get zoomModalClass() {
+    return this.isImageZoomed ? 'zoom-modal show' : 'zoom-modal';
   }
 }
