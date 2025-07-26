@@ -11,6 +11,17 @@ export default class BikeDetail extends LightningElement {
     if (this.bike?.colors?.length > 0) {
       this.selectedColor = this.bike.colors[0];
     }
+    
+    // Bind keyboard handler for zoom navigation
+    this.boundKeyHandler = this.handleZoomKeyDown.bind(this);
+    document.addEventListener('keydown', this.boundKeyHandler);
+  }
+  
+  disconnectedCallback() {
+    // Clean up keyboard event listener
+    if (this.boundKeyHandler) {
+      document.removeEventListener('keydown', this.boundKeyHandler);
+    }
   }
   
   handleColorChange(event) {
@@ -60,6 +71,32 @@ export default class BikeDetail extends LightningElement {
     this.isImageZoomed = false;
   }
   
+  handleZoomPrevious() {
+    this.handlePreviousImage();
+  }
+  
+  handleZoomNext() {
+    this.handleNextImage();
+  }
+  
+  handleZoomKeyDown(event) {
+    if (this.isImageZoomed) {
+      switch (event.key) {
+        case 'Escape':
+          this.handleZoomClose();
+          break;
+        case 'ArrowLeft':
+          event.preventDefault();
+          this.handlePreviousImage();
+          break;
+        case 'ArrowRight':
+          event.preventDefault();
+          this.handleNextImage();
+          break;
+      }
+    }
+  }
+  
   handlePreviousImage() {
     const images = this.currentImages;
     if (images.length > 1) {
@@ -77,6 +114,11 @@ export default class BikeDetail extends LightningElement {
   handleThumbnailClick(event) {
     const index = parseInt(event.target.dataset.index, 10);
     this.currentImageIndex = index;
+  }
+  
+  handleZoomContentClick(event) {
+    // Prevent zoom from closing when clicking on content area
+    event.stopPropagation();
   }
   
   get currentImages() {

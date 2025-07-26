@@ -194,19 +194,47 @@
     <!-- Image Zoom Modal -->
     <template if:true={isImageZoomed}>
       <div class={zoomModalClass} onclick={handleZoomClose}>
-        <div class="zoom-content">
+        <div class="zoom-content" onclick={handleZoomContentClick}>
           <img 
             src={currentImage} 
             alt={bike.name}
             class="zoom-image"
           />
+          
+          <!-- Zoom Navigation -->
+          <template if:true={hasMultipleImages}>
+            <button 
+              class="zoom-nav prev"
+              onclick={handleZoomPrevious}
+              aria-label="Previous image"
+            >
+              ❮
+            </button>
+            <button 
+              class="zoom-nav next"
+              onclick={handleZoomNext}
+              aria-label="Next image"
+            >
+              ❯
+            </button>
+            <div class="zoom-counter">{imageCounter}</div>
+          </template>
+          
           <button 
             class="zoom-close"
             onclick={handleZoomClose}
-            aria-label="Close zoom"
+            aria-label="Close zoom (Esc)"
           >
             ×
           </button>
+          
+          <!-- Instructions -->
+          <div class="zoom-instructions">
+            <template if:true={hasMultipleImages}>
+              Use ← → arrow keys or click buttons to navigate • 
+            </template>
+            Press Esc or click outside to close
+          </div>
         </div>
       </div>
     </template>
