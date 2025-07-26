@@ -30,6 +30,10 @@ export default {
                 {
                     src: 'node_modules/@salesforce-ux/design-system/assets/**/*',
                     dest: 'dist/assets'
+                },
+                {
+                    src: 'src/assets/**/*',
+                    dest: 'dist/assets'
                 }
             ]
         }),
