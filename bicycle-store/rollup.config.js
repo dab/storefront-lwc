@@ -3,6 +3,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import serve from 'rollup-plugin-serve';
 import livereload from 'rollup-plugin-livereload';
+import copy from 'rollup-plugin-copy';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -24,6 +25,14 @@ export default {
             browser: true
         }),
         lwc(),
+        copy({
+            targets: [
+                {
+                    src: 'node_modules/@salesforce-ux/design-system/assets/**/*',
+                    dest: 'dist/assets'
+                }
+            ]
+        }),
         !isProduction && serve({
             contentBase: 'dist',
             port: 3001,

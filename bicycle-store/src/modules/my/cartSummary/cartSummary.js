@@ -68,4 +68,19 @@ export default class CartSummary extends LightningElement {
   get toggleButtonText() {
     return this.isExpanded ? '▼' : '▲';
   }
+
+  get cartItemsWithFormatting() {
+    return this.cartItems.map(item => ({
+      ...item,
+      quantityId: `qty-${item.cartId}`,
+      formattedPrice: new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      }).format(item.price),
+      formattedLineTotal: new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      }).format(item.lineTotal)
+    }));
+  }
 }

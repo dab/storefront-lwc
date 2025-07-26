@@ -83,8 +83,14 @@ export default class BikeCard extends LightningElement {
     return this.bike?.inStock ? 'In Stock' : 'Out of Stock';
   }
   
-  get stockClass() {
-    return this.bike?.inStock ? 'stock-available' : 'stock-unavailable';
+  get stockBadgeClass() {
+    return this.bike?.inStock ? 
+      'slds-badge slds-badge_lightest slds-theme_success' : 
+      'slds-badge slds-badge_lightest slds-theme_error';
+  }
+  
+  get colorSelectId() {
+    return `color-select-${this.bike?.id || 'default'}`;
   }
   
   get isOutOfStock() {

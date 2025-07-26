@@ -1,60 +1,65 @@
 <template>
-  <article class="bike-card" role="article">
-    <div class="bike-image-container" onclick={handleViewDetails} role="button" tabindex="0" onkeydown={handleKeyDown}>
-      <img 
-        src={currentImage} 
-        alt={bike.name}
-        class="bike-image clickable"
-        loading="lazy"
-      />
-      <div class={stockClass}>
-        {stockStatus}
+  <article class="slds-card">
+    <div class="slds-card__header">
+      <div class="bike-image-container" onclick={handleViewDetails} role="button" tabindex="0" onkeydown={handleKeyDown}>
+        <img 
+          src={currentImage} 
+          alt={bike.name}
+          class="bike-image slds-image"
+          loading="lazy"
+        />
+        <span class={stockBadgeClass}>
+          {stockStatus}
+        </span>
       </div>
     </div>
     
-    <div class="bike-details">
-      <h3 class="bike-name clickable" onclick={handleViewDetails} role="button" tabindex="0" onkeydown={handleKeyDown}>{bike.name}</h3>
-      <p class="bike-brand">{bike.brand}</p>
-      <p class="bike-type">{bike.type} bike</p>
-      <p class="bike-gear">{bike.gearType}</p>
+    <div class="slds-card__body slds-card__body_inner">
+      <h3 class="slds-text-heading_small slds-truncate clickable" onclick={handleViewDetails} role="button" tabindex="0" onkeydown={handleKeyDown}>
+        {bike.name}
+      </h3>
+      <p class="slds-text-body_regular slds-text-color_weak">{bike.brand}</p>
+      <p class="slds-text-body_small">{bike.type} bike • {bike.gearType}</p>
       
-      <div class="price-section">
-        <span class="bike-price">{formattedPrice}</span>
+      <div class="slds-m-top_small">
+        <span class="slds-text-heading_medium slds-text-color_success">{formattedPrice}</span>
       </div>
       
-      <div class="color-selection">
-        <label class="color-label">Color:</label>
-        <select 
-          class="color-select"
-          onchange={handleColorChange}
-        >
-          <template for:each={colorOptions} for:item="option">
-            <option key={option.value} value={option.value} selected={option.selected}>
-              {option.label}
-            </option>
-          </template>
-        </select>
+      <div class="slds-form-element slds-m-top_small">
+        <label class="slds-form-element__label" for={colorSelectId}>Color</label>
+        <div class="slds-form-element__control">
+          <select 
+            id={colorSelectId}
+            class="slds-select"
+            onchange={handleColorChange}>
+            <template for:each={colorOptions} for:item="option">
+              <option key={option.value} value={option.value} selected={option.selected}>
+                {option.label}
+              </option>
+            </template>
+          </select>
+        </div>
       </div>
-      
+    </div>
+    
+    <footer class="slds-card__footer">
       <template if:true={isOutOfStock}>
         <button 
-          class="add-to-cart-btn"
+          class="slds-button slds-button_neutral slds-button_stretch"
           disabled
-          aria-label={bike.name}
-        >
+          aria-label={bike.name}>
           Out of Stock
         </button>
       </template>
       
       <template if:false={isOutOfStock}>
         <button 
-          class="add-to-cart-btn"
+          class="slds-button slds-button_brand slds-button_stretch"
           onclick={handleAddToCart}
-          aria-label={bike.name}
-        >
+          aria-label={bike.name}>
           Add to Cart
         </button>
       </template>
-    </div>
+    </footer>
   </article>
 </template>

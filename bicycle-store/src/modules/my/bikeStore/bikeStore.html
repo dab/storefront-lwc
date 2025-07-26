@@ -12,218 +12,144 @@
     
     <!-- Store View -->
     <template if:true={isStoreView}>
-    <!-- Mobile Filter Button -->
-    <div class="mobile-filter-header">
-      <button 
-        class="mobile-filter-toggle"
-        onclick={handleToggleMobileFilters}
-        aria-expanded={showMobileFilters}
-      >
-        {mobileFilterButtonText}
-      </button>
-    </div>
+      <!-- Error Message -->
+      <template if:true={showError}>
+        <div class="slds-notify slds-notify_alert slds-alert_error slds-m-bottom_medium" role="alert">
+          <span class="slds-assistive-text">error</span>
+          <h2>{errorMessage}</h2>
+        </div>
+      </template>
 
-    <div class="store-layout">
-      <!-- Filter Panel -->
-      <aside class="filter-panel" data-mobile-hidden={showMobileFilters}>
-        <div class="filter-header">
-          <h3>Filters</h3>
-          <template if:true={hasActiveFilters}>
-            <button class="clear-all-btn" onclick={handleClearFilters}>
-              Clear All
-            </button>
-          </template>
-        </div>
-        
-        <!-- Type Filter -->
-        <div class="filter-group">
-          <label class="filter-label">Bike Type</label>
-          <select 
-            class="filter-select"
-            onchange={handleTypeFilter}
-          >
-            <template for:each={typeOptions} for:item="option">
-              <option key={option.value} value={option.value} selected={option.selected}>
-                {option.label}
-              </option>
+      <!-- Mobile Filter Button -->
+      <div class="mobile-filter-header">
+        <button 
+          class="slds-button slds-button_brand mobile-filter-toggle"
+          onclick={handleToggleMobileFilters}
+          aria-expanded={showMobileFilters}>
+          🔍 {mobileFilterButtonText}
+        </button>
+      </div>
+
+      <div class="store-layout">
+        <!-- Filter Panel Sidebar -->
+        <aside class="filter-panel" data-mobile-hidden={showMobileFilters}>
+          <div class="slds-card">
+            <div class="slds-card__header slds-grid">
+              <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__body">
+                  <h2 class="slds-card__header-title slds-text-heading_small">Filters</h2>
+                </div>
+                <template if:true={hasActiveFilters}>
+                  <div class="slds-no-flex">
+                    <button class="slds-button slds-button_text-destructive" onclick={handleClearAllFilters}>
+                      Clear All
+                    </button>
+                  </div>
+                </template>
+              </header>
+            </div>
+            
+            <div class="slds-card__body slds-card__body_inner">
+              <my-bike-filters
+                bikes={bikes}
+                active-filters={activeFilters}
+                show-mobile={showMobileFilters}
+                onfilterchange={handleFilterChange}
+                onclearfilter={handleClearFilter}
+                onclearallfilters={handleClearAllFilters}>
+              </my-bike-filters>
+            </div>
+
+            <!-- Mobile Filter Close Button -->
+            <template if:true={showMobileFilters}>
+              <footer class="slds-card__footer">
+                <button class="slds-button slds-button_brand slds-button_stretch" onclick={handleToggleMobileFilters}>
+                  Apply Filters
+                </button>
+              </footer>
             </template>
-          </select>
-        </div>
-        
-        <!-- Brand Filter -->
-        <div class="filter-group">
-          <label class="filter-label">Brand</label>
-          <select 
-            class="filter-select"
-            onchange={handleBrandFilter}
-          >
-            <template for:each={brandOptions} for:item="option">
-              <option key={option.value} value={option.value} selected={option.selected}>
-                {option.label}
-              </option>
-            </template>
-          </select>
-        </div>
-        
-        <!-- Price Range Filter -->
-        <div class="filter-group">
-          <label class="filter-label">
-            Price Range: ${activeFilters.priceRange.min} - ${activeFilters.priceRange.max}
-          </label>
-          <div class="price-range-inputs">
-            <input 
-              type="number"
-              class="price-input"
-              placeholder="Min"
-              value={activeFilters.priceRange.min}
-              min="0"
-              max={maxPrice}
-              onchange={handleMinPriceChange}
-            />
-            <span class="price-separator">to</span>
-            <input 
-              type="number"
-              class="price-input"
-              placeholder="Max"
-              value={activeFilters.priceRange.max}
-              min="0"
-              max={maxPrice}
-              onchange={handleMaxPriceChange}
-            />
           </div>
-        </div>
+        </aside>
         
-        <!-- Mobile Filter Close Button -->
-        <template if:true={showMobileFilters}>
-          <button class="mobile-filter-close" onclick={handleToggleMobileFilters}>
-            Apply Filters
-          </button>
-        </template>
-      </aside>
-      
-      <!-- Main Content -->
-      <main class="main-content">
-        <!-- Product Header -->
-        <div class="product-header">
-          <div class="product-info">
-            <h2>Available Bicycles</h2>
-            <p class="product-count">{filteredBikes.length} products</p>
-            <template if:true={totalPages}>
-              <p class="pagination-info">{paginationInfo}</p>
+        <!-- Main Content -->
+        <main class="main-content">
+          <!-- Product Header -->
+          <div class="slds-grid slds-grid_align-spread slds-m-bottom_medium">
+            <div class="slds-col">
+              <h1 class="slds-text-heading_large">Available Bicycles</h1>
+              <p class="slds-text-body_regular slds-text-color_weak">{filteredBikes.length} products</p>
+            </div>
+            <div class="slds-col slds-text-align_right">
+              <div class="slds-form-element">
+                <label class="slds-form-element__label" for="sort-select">Sort by:</label>
+                <div class="slds-form-element__control">
+                  <select 
+                    id="sort-select"
+                    class="slds-select"
+                    onchange={handleSortChange}>
+                    <template for:each={sortOptions} for:item="option">
+                      <option key={option.value} value={option.value} selected={option.selected}>
+                        {option.label}
+                      </option>
+                    </template>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Product Grid -->
+          <div class="slds-grid slds-wrap slds-grid_pull-padded-medium">
+            <template for:each={displayedBikes} for:item="bike">
+              <div key={bike.id} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3 slds-p-around_medium">
+                <my-bike-card 
+                  bike={bike}
+                  onadd_to_cart={handleAddToCart}>
+                </my-bike-card>
+              </div>
             </template>
           </div>
           
-          <!-- Sort Controls -->
-          <div class="sort-controls">
-            <label class="sort-label">Sort by:</label>
-            <select 
-              class="sort-select"
-              onchange={handleSortChange}
-            >
-              <template for:each={sortOptions} for:item="option">
-                <option key={option.value} value={option.value} selected={option.selected}>
-                  {option.label}
-                </option>
-              </template>
-            </select>
-          </div>
-        </div>
-        
-        <!-- Active Filters Display -->
-        <template if:true={hasActiveFilters}>
-          <div class="active-filters">
-            <template if:true={activeFilters.type}>
-              <span class="filter-tag">
-                Type: {activeFilters.type}
-                <button class="filter-remove" data-filter="type" onclick={handleRemoveFilter}>×</button>
-              </span>
-            </template>
-            <template if:true={activeFilters.brand}>
-              <span class="filter-tag">
-                Brand: {activeFilters.brand}
-                <button class="filter-remove" data-filter="brand" onclick={handleRemoveFilter}>×</button>
-              </span>
-            </template>
-          </div>
-        </template>
-        
-        <!-- Product Grid -->
-        <div class="bikes-grid">
-          <template for:each={displayedBikes} for:item="bike">
-            <div key={bike.id} class="bike-card-container">
-              <my-bike-card 
-                bike={bike}
-                onadd_to_cart={handleAddToCart}>
-              </my-bike-card>
-            </div>
-          </template>
-        </div>
-        
-        <!-- Pagination -->
-        <template if:true={totalPages}>
-          <div class="pagination">
-              <button 
-                class="pagination-btn prev"
-                onclick={handlePreviousPage}
-                disabled={canGoPrevious}
-                aria-label="Previous page"
-              >
-                ← Previous
-              </button>
-              
-              <div class="pagination-numbers">
-                <template for:each={pageNumbers} for:item="page">
-                  <button 
-                    key={page.number}
-                    class="pagination-number"
-                    data-page={page.number}
-                    onclick={handlePageSelect}
-                    aria-current={page.isCurrentPage}
-                  >
-                    {page.number}
+          <!-- No Results -->
+          <template if:false={filteredBikes.length}>
+            <div class="slds-align_absolute-center slds-p-around_xx-large">
+              <div class="slds-text-align_center">
+                <svg class="slds-icon slds-icon_large slds-icon-text-light" aria-hidden="true">
+                  <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#search"></use>
+                </svg>
+                <h3 class="slds-text-heading_medium slds-m-top_medium">No bikes match your filters</h3>
+                <p class="slds-text-body_regular slds-text-color_weak">Try adjusting your filter criteria to see more results.</p>
+                <template if:true={hasActiveFilters}>
+                  <button class="slds-button slds-button_brand slds-m-top_medium" onclick={handleClearAllFilters}>
+                    Clear All Filters
                   </button>
                 </template>
               </div>
-              
-              <button 
-                class="pagination-btn next"
-                onclick={handleNextPage}
-                disabled={canGoNext}
-                aria-label="Next page"
-              >
-                Next →
-              </button>
             </div>
-        </template>
-        
-        <!-- No Results Message -->
-        <template if:false={filteredBikes.length}>
-          <div class="no-results">
-            <div class="no-results-icon">🔍</div>
-            <h3>No bikes match your filters</h3>
-            <p>Try adjusting your filter criteria to see more results.</p>
-            <template if:true={hasActiveFilters}>
-              <button class="clear-filters-btn" onclick={handleClearFilters}>
-                Clear All Filters
-              </button>
-            </template>
-          </div>
-        </template>
-      </main>
-    </div>
-    
-    <!-- Mobile Filter Overlay -->
-    <template if:true={showMobileFilters}>
-      <div class="mobile-filter-overlay" onclick={handleToggleMobileFilters}></div>
+          </template>
+          
+          <!-- Pagination Component -->
+          <my-bike-pagination
+            current-page={currentPage}
+            total-items={filteredBikes.length}
+            items-per-page={itemsPerPage}
+            onnavigate={handlePageNavigation}>
+          </my-bike-pagination>
+        </main>
+      </div>
+      
+      <!-- Mobile Filter Overlay -->
+      <template if:true={showMobileFilters}>
+        <div class="mobile-filter-overlay" onclick={handleToggleMobileFilters}></div>
+      </template>
     </template>
-    </template><!-- End Store View -->
     
-    <!-- Cart Summary (Always Visible) -->
+    <!-- Cart Summary (Fixed Position) -->
     <div class="cart-summary-fixed">
       <my-cart-summary
-        cart-items={cartItems}
-        cart-total={cartTotal}
-        cart-count={cartCount}
+        cart-items={cartState.items}
+        cart-total={cartState.total}
+        cart-count={cartState.count}
         onupdate_cart={handleUpdateCart}>
       </my-cart-summary>
     </div>
