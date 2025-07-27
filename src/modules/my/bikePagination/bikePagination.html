@@ -1,48 +1,70 @@
 <template>
   <template if:true={showPagination}>
-    <div class="slds-grid slds-grid_align-center slds-m-vertical_medium">
-      <div class="slds-col">
-        <div class="slds-button-group" role="group">
-          <button
-            class="slds-button slds-button_icon slds-button_icon-border"
-            disabled={isPreviousDisabled}
-            onclick={handlePrevious}
-            title="Previous"
-          >
-            <svg class="slds-button__icon" aria-hidden="true">
-              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#chevronleft"></use>
-            </svg>
-            <span class="slds-assistive-text">Previous</span>
-          </button>
-
-          <template for:each={pages} for:item="page">
+    <nav aria-label="Pagination Navigation" role="navigation">
+      <div class="slds-grid slds-grid_align-center slds-m-vertical_medium">
+        <div class="slds-col">
+          <div class="slds-button-group" role="group" aria-label="Pagination">
             <button
-              key={page.number}
-              class={page.class}
-              data-page={page.number}
-              onclick={handlePageClick}
+              class="slds-button slds-button_icon slds-button_icon-border"
+              disabled={isPreviousDisabled}
+              onclick={handlePrevious}
+              aria-label="Go to previous page"
+              title="Previous"
             >
-              {page.number}
+              <svg class="slds-button__icon" aria-hidden="true">
+                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#chevronleft"></use>
+              </svg>
+              <span class="slds-assistive-text">Previous page</span>
             </button>
-          </template>
 
-          <button
-            class="slds-button slds-button_icon slds-button_icon-border"
-            disabled={isNextDisabled}
-            onclick={handleNext}
-            title="Next"
-          >
-            <svg class="slds-button__icon" aria-hidden="true">
-              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
-            </svg>
-            <span class="slds-assistive-text">Next</span>
-          </button>
+            <template for:each={pages} for:item="page">
+              <template if:true={page.isActive}>
+                <button
+                  key={page.number}
+                  class={page.class}
+                  data-page={page.number}
+                  onclick={handlePageClick}
+                  aria-label={page.ariaLabel}
+                  aria-current="page"
+                >
+                  {page.number}
+                </button>
+              </template>
+              <template if:false={page.isActive}>
+                <button
+                  key={page.number}
+                  class={page.class}
+                  data-page={page.number}
+                  onclick={handlePageClick}
+                  aria-label={page.ariaLabel}
+                >
+                  {page.number}
+                </button>
+              </template>
+            </template>
+
+            <button
+              class="slds-button slds-button_icon slds-button_icon-border"
+              disabled={isNextDisabled}
+              onclick={handleNext}
+              aria-label="Go to next page"
+              title="Next"
+            >
+              <svg class="slds-button__icon" aria-hidden="true">
+                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#chevronright"></use>
+              </svg>
+              <span class="slds-assistive-text">Next page</span>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="slds-text-align_center slds-text-color_weak slds-m-bottom_medium">
-      {paginationInfo}
-    </div>
+      <div
+        class="slds-text-align_center slds-text-color_weak slds-m-bottom_medium"
+        aria-live="polite"
+      >
+        {paginationInfo}
+      </div>
+    </nav>
   </template>
 </template>

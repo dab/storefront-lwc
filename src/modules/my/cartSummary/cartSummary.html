@@ -61,8 +61,8 @@
                             <input
                               id={item.quantityId}
                               type="number"
-                              min="1"
-                              max="10"
+                              min={item.minQuantity}
+                              max={item.maxQuantity}
                               value={item.quantity}
                               data-cart-id={item.cartId}
                               onchange={handleQuantityChange}
@@ -99,7 +99,7 @@
 
       <template if:false={isEmpty}>
         <footer class="slds-card__footer">
-          <div class="slds-grid slds-grid_align-spread">
+          <div class="slds-col">
             <div class="slds-col">
               <span class="slds-text-heading_small">Total: {formattedTotal}</span>
             </div>

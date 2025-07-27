@@ -1,33 +1,28 @@
 import { LightningElement, api } from 'lwc';
 
+// Constants
+const PRICE_RANGE_MIN = 0;
+const PRICE_RANGE_MAX = 10000;
+
 export default class BikeFilters extends LightningElement {
   @api bikes = [];
   @api activeFilters = {
     type: '',
     brand: '',
-    priceRange: { min: 0, max: 10000 },
+    priceRange: { min: PRICE_RANGE_MIN, max: PRICE_RANGE_MAX },
   };
   @api showMobile = false;
 
+  // Memoized computed values for performance
+  _cachedTypeOptions;
+  _cachedBrandOptions;
+  _lastBikesLengthForTypes = 0;
+  _lastBikesLengthForBrands = 0;
+
   handleFilterChange(event) {
     const { name, value } = event.target;
-    let filterUpdate;
 
-    if (name === 'minPrice' || name === 'maxPrice') {
-      const priceValue = parseInt(value, 10) || (name === 'minPrice' ? 0 : 10000);
-      filterUpdate = {
-        filterType: 'priceRange',
-        value: {
-          ...this.activeFilters.priceRange,
-          [name === 'minPrice' ? 'min' : 'max']: priceValue,
-        },
-      };
-    } else {
-      filterUpdate = {
-        filterType: name,
-        value,
-      };
-    }
+    const filterUpdate = this._createFilterUpdate(name, value);
 
     this.dispatchEvent(
       new CustomEvent('filterchange', {
@@ -35,6 +30,26 @@ export default class BikeFilters extends LightningElement {
         bubbles: true,
       })
     );
+  }
+
+  _createFilterUpdate(name, value) {
+    if (name === 'minPrice' || name === 'maxPrice') {
+      const defaultValue = name === 'minPrice' ? PRICE_RANGE_MIN : PRICE_RANGE_MAX;
+      const priceValue = parseInt(value, 10) || defaultValue;
+
+      return {
+        filterType: 'priceRange',
+        value: {
+          ...this.activeFilters.priceRange,
+          [name === 'minPrice' ? 'min' : 'max']: priceValue,
+        },
+      };
+    }
+
+    return {
+      filterType: name,
+      value,
+    };
   }
 
   handleClearFilter(event) {
@@ -47,49 +62,60 @@ export default class BikeFilters extends LightningElement {
     );
   }
 
-  handleClearAll() {
-    this.dispatchEvent(
-      new CustomEvent('clearallfilters', {
-        bubbles: true,
-      })
-    );
-  }
-
   get typeOptions() {
-    const types = [...new Set(this.bikes.map(bike => bike.type))];
-    return [
-      { label: 'All Types', value: '', selected: this.activeFilters.type === '' },
-      ...types.map(type => ({
-        label: type.charAt(0).toUpperCase() + type.slice(1),
-        value: type,
-        selected: this.activeFilters.type === type,
-      })),
-    ];
+    // Memoize expensive array operations for performance
+    if (!this._cachedTypeOptions || this._lastBikesLengthForTypes !== this.bikes.length) {
+      const types = [...new Set(this.bikes.map(bike => bike.type))];
+      this._cachedTypeOptions = [
+        { label: 'All Types', value: '' },
+        ...types.map(type => ({
+          label: type.charAt(0).toUpperCase() + type.slice(1),
+          value: type,
+        })),
+      ];
+      this._lastBikesLengthForTypes = this.bikes.length;
+    }
+
+    // Add selection state without re-computing the entire array
+    return this._cachedTypeOptions.map(option => ({
+      ...option,
+      selected: this.activeFilters.type === option.value,
+    }));
   }
 
   get brandOptions() {
-    const brands = [...new Set(this.bikes.map(bike => bike.brand))];
-    return [
-      { label: 'All Brands', value: '', selected: this.activeFilters.brand === '' },
-      ...brands.map(brand => ({
-        label: brand,
-        value: brand,
-        selected: this.activeFilters.brand === brand,
-      })),
-    ];
+    // Memoize expensive array operations for performance
+    if (!this._cachedBrandOptions || this._lastBikesLengthForBrands !== this.bikes.length) {
+      const brands = [...new Set(this.bikes.map(bike => bike.brand))];
+      this._cachedBrandOptions = [
+        { label: 'All Brands', value: '' },
+        ...brands.map(brand => ({
+          label: brand,
+          value: brand,
+        })),
+      ];
+      this._lastBikesLengthForBrands = this.bikes.length;
+    }
+
+    // Add selection state without re-computing the entire array
+    return this._cachedBrandOptions.map(option => ({
+      ...option,
+      selected: this.activeFilters.brand === option.value,
+    }));
   }
 
   get hasActiveFilters() {
     return (
       this.activeFilters.type ||
       this.activeFilters.brand ||
-      this.activeFilters.priceRange.min > 0 ||
-      this.activeFilters.priceRange.max < 10000
+      this.activeFilters.priceRange.min > PRICE_RANGE_MIN ||
+      this.activeFilters.priceRange.max < PRICE_RANGE_MAX
     );
   }
 
   get activeFiltersList() {
     const filters = [];
+
     if (this.activeFilters.type) {
       filters.push({
         key: 'type',
@@ -97,6 +123,7 @@ export default class BikeFilters extends LightningElement {
         value: this.activeFilters.type,
       });
     }
+
     if (this.activeFilters.brand) {
       filters.push({
         key: 'brand',
@@ -104,17 +131,16 @@ export default class BikeFilters extends LightningElement {
         value: this.activeFilters.brand,
       });
     }
-    if (this.activeFilters.priceRange.min > 0 || this.activeFilters.priceRange.max < 10000) {
+
+    const { min, max } = this.activeFilters.priceRange;
+    if (min > PRICE_RANGE_MIN || max < PRICE_RANGE_MAX) {
       filters.push({
         key: 'priceRange',
-        label: `Price: $${this.activeFilters.priceRange.min} - $${this.activeFilters.priceRange.max}`,
+        label: `Price: $${min} - $${max}`,
         value: 'price',
       });
     }
-    return filters;
-  }
 
-  get filterContainerClass() {
-    return 'slds-grid slds-wrap slds-grid_vertical-align-center slds-m-bottom_medium';
+    return filters;
   }
 }

@@ -1,16 +1,26 @@
 import { LightningElement, api } from 'lwc';
 
+// Constants
+const DEFAULT_IMAGE_URL = 'https://placehold.co/600x400';
+const KEYBOARD_KEYS = {
+  ESCAPE: 'Escape',
+  ARROW_LEFT: 'ArrowLeft',
+  ARROW_RIGHT: 'ArrowRight',
+  ENTER: 'Enter',
+  SPACE: ' ',
+};
+
 export default class BikeDetail extends LightningElement {
   @api bike;
   selectedColor = '';
   quantity = 1;
   isImageZoomed = false;
   currentImageIndex = 0;
+  boundKeyHandler;
 
   connectedCallback() {
-    if (this.bike?.colors?.length > 0) {
-      this.selectedColor = this.bike.colors[0];
-    }
+    // Initialize selected color
+    this.selectedColor = this.bike?.colors?.[0] || '';
 
     // Bind keyboard handler for zoom navigation
     this.boundKeyHandler = this.handleZoomKeyDown.bind(this);
@@ -34,26 +44,24 @@ export default class BikeDetail extends LightningElement {
   }
 
   handleAddToCart() {
-    const addEvent = new CustomEvent('add_to_cart', {
-      bubbles: true,
-      composed: false,
-      detail: {
-        bikeId: this.bike.id,
-        selectedColor: this.selectedColor,
-        quantity: this.quantity,
-      },
-    });
-
-    this.dispatchEvent(addEvent);
+    this.dispatchEvent(
+      new CustomEvent('add_to_cart', {
+        bubbles: true,
+        detail: {
+          bikeId: this.bike.id,
+          selectedColor: this.selectedColor,
+          quantity: this.quantity,
+        },
+      })
+    );
   }
 
   handleBackToStore() {
-    const backEvent = new CustomEvent('back_to_store', {
-      bubbles: true,
-      composed: false,
-    });
-
-    this.dispatchEvent(backEvent);
+    this.dispatchEvent(
+      new CustomEvent('back_to_store', {
+        bubbles: true,
+      })
+    );
   }
 
   handleImageClick() {
@@ -61,7 +69,7 @@ export default class BikeDetail extends LightningElement {
   }
 
   handleImageKeyDown(event) {
-    if (event.key === 'Enter' || event.key === ' ') {
+    if (event.key === KEYBOARD_KEYS.ENTER || event.key === KEYBOARD_KEYS.SPACE) {
       event.preventDefault();
       this.handleImageClick();
     }
@@ -71,25 +79,20 @@ export default class BikeDetail extends LightningElement {
     this.isImageZoomed = false;
   }
 
-  handleZoomPrevious() {
-    this.handlePreviousImage();
-  }
-
-  handleZoomNext() {
-    this.handleNextImage();
-  }
+  handleZoomPrevious = () => this.handlePreviousImage();
+  handleZoomNext = () => this.handleNextImage();
 
   handleZoomKeyDown(event) {
     if (this.isImageZoomed) {
       switch (event.key) {
-        case 'Escape':
+        case KEYBOARD_KEYS.ESCAPE:
           this.handleZoomClose();
           break;
-        case 'ArrowLeft':
+        case KEYBOARD_KEYS.ARROW_LEFT:
           event.preventDefault();
           this.handlePreviousImage();
           break;
-        case 'ArrowRight':
+        case KEYBOARD_KEYS.ARROW_RIGHT:
           event.preventDefault();
           this.handleNextImage();
           break;
@@ -125,40 +128,36 @@ export default class BikeDetail extends LightningElement {
 
   get currentImages() {
     // Get all images for the selected color
-    if (this.bike?.images && this.selectedColor && this.bike.images[this.selectedColor]) {
-      const colorImages = this.bike.images[this.selectedColor];
+    const colorImages = this.bike?.images?.[this.selectedColor];
+    if (colorImages) {
       return Array.isArray(colorImages) ? colorImages : [colorImages];
     }
-    return [this.bike?.image || 'https://placehold.co/600x400'];
+    return [this.bike?.image || DEFAULT_IMAGE_URL];
   }
 
   get currentImage() {
     // Get the currently selected image from the gallery
     const images = this.currentImages;
-    return (
-      images[this.currentImageIndex] ||
-      images[0] ||
-      this.bike?.image ||
-      'https://placehold.co/600x400'
-    );
+    return images[this.currentImageIndex] || images[0] || DEFAULT_IMAGE_URL;
   }
 
-  get formattedPrice() {
+  // Utility method for formatting currency
+  formatCurrency(amount) {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
-    }).format(this.bike?.price || 0);
+    }).format(amount || 0);
+  }
+
+  get formattedPrice() {
+    return this.formatCurrency(this.bike?.price);
   }
 
   get formattedOriginalPrice() {
     if (!this.bike?.originalPrice || this.bike.originalPrice === this.bike.price) {
       return null;
     }
-
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    }).format(this.bike.originalPrice);
+    return this.formatCurrency(this.bike.originalPrice);
   }
 
   get hasDiscount() {
@@ -192,16 +191,13 @@ export default class BikeDetail extends LightningElement {
   }
 
   get frameSize() {
-    if (!this.bike?.frameSize) return 'Various sizes available';
-    return this.bike.frameSize.join(', ');
+    return this.bike?.frameSize?.join(', ') || 'Various sizes available';
   }
 
   get specifications() {
-    if (!this.bike?.specs) return [];
-
-    return Object.entries(this.bike.specs).map(([key, value]) => ({
+    return Object.entries(this.bike?.specs || {}).map(([key, value]) => ({
       label: key.charAt(0).toUpperCase() + key.slice(1),
-      value: value,
+      value,
     }));
   }
 

@@ -1,5 +1,11 @@
 import { LightningElement, api } from 'lwc';
 
+// Constants
+const CURRENCY_CODE = 'USD';
+const LOCALE = 'en-US';
+const MIN_QUANTITY = 1;
+const MAX_QUANTITY = 10;
+
 export default class CartSummary extends LightningElement {
   @api cartItems = [];
   @api cartTotal = 0;
@@ -7,47 +13,49 @@ export default class CartSummary extends LightningElement {
 
   isExpanded = false;
 
+  // Cached currency formatter for performance
+  _currencyFormatter = new Intl.NumberFormat(LOCALE, {
+    style: 'currency',
+    currency: CURRENCY_CODE,
+  });
+
   handleToggleCart() {
     this.isExpanded = !this.isExpanded;
   }
 
   handleQuantityChange(event) {
-    const cartId = parseInt(event.target.dataset.cartId, 10);
-    const quantity = parseInt(event.target.value, 10);
+    const cartId = event.target.dataset.cartId; // Don't parse as int - keep as string
+    const inputValue = parseInt(event.target.value, 10);
 
-    // Event per lwc.dev standards
-    const updateEvent = new CustomEvent('update_cart', {
-      bubbles: true,
-      composed: false,
-      detail: {
-        cartId,
-        quantity,
-      },
-    });
+    // Allow 0 for removal, otherwise enforce min/max bounds
+    let quantity;
+    if (inputValue === 0) {
+      quantity = 0; // Allow removal
+    } else if (isNaN(inputValue) || inputValue < MIN_QUANTITY) {
+      quantity = MIN_QUANTITY; // Default to minimum if invalid/empty
+    } else {
+      quantity = Math.min(MAX_QUANTITY, inputValue); // Cap at maximum
+    }
 
-    this.dispatchEvent(updateEvent);
+    this._dispatchUpdateCartEvent(cartId, quantity);
   }
 
   handleRemoveItem(event) {
-    const cartId = parseInt(event.target.dataset.cartId, 10);
+    const cartId = event.target.dataset.cartId; // Don't parse as int - keep as string
+    this._dispatchUpdateCartEvent(cartId, 0); // 0 quantity = remove
+  }
 
-    const removeEvent = new CustomEvent('update_cart', {
-      bubbles: true,
-      composed: false,
-      detail: {
-        cartId,
-        quantity: 0, // 0 quantity = remove
-      },
-    });
-
-    this.dispatchEvent(removeEvent);
+  _dispatchUpdateCartEvent(cartId, quantity) {
+    this.dispatchEvent(
+      new CustomEvent('update_cart', {
+        bubbles: true,
+        detail: { cartId, quantity },
+      })
+    );
   }
 
   get formattedTotal() {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    }).format(this.cartTotal);
+    return this._currencyFormatter.format(this.cartTotal);
   }
 
   get isEmpty() {
@@ -73,14 +81,10 @@ export default class CartSummary extends LightningElement {
     return this.cartItems.map(item => ({
       ...item,
       quantityId: `qty-${item.cartId}`,
-      formattedPrice: new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-      }).format(item.price),
-      formattedLineTotal: new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-      }).format(item.lineTotal),
+      formattedPrice: this._currencyFormatter.format(item.price),
+      formattedLineTotal: this._currencyFormatter.format(item.lineTotal),
+      minQuantity: 0, // Allow 0 for removal
+      maxQuantity: MAX_QUANTITY,
     }));
   }
 }

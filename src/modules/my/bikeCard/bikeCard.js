@@ -1,15 +1,19 @@
 import { LightningElement, api } from 'lwc';
 
+// Constants
+const DEFAULT_IMAGE_URL = 'https://placehold.co/300x200';
+const KEYBOARD_KEYS = {
+  ENTER: 'Enter',
+  SPACE: ' ',
+};
+
 export default class BikeCard extends LightningElement {
   @api bike;
-
   selectedColor = '';
 
   connectedCallback() {
-    // Set default color
-    if (this.bike?.colors?.length > 0) {
-      this.selectedColor = this.bike.colors[0];
-    }
+    // Initialize selected color when bike data is available
+    this.selectedColor = this.bike?.colors?.[0] || '';
   }
 
   handleColorChange(event) {
@@ -17,36 +21,32 @@ export default class BikeCard extends LightningElement {
   }
 
   handleAddToCart() {
-    // Event naming per lwc.dev: no uppercase, underscores OK
-    const addEvent = new CustomEvent('add_to_cart', {
-      bubbles: true,
-      composed: false,
-      detail: {
-        // Send only primitives (lwc.dev best practice)
-        bikeId: this.bike.id,
-        selectedColor: this.selectedColor,
-        quantity: 1,
-      },
-    });
-
-    this.dispatchEvent(addEvent);
+    this.dispatchEvent(
+      new CustomEvent('add_to_cart', {
+        bubbles: true,
+        detail: {
+          bikeId: this.bike.id,
+          selectedColor: this.selectedColor,
+          quantity: 1,
+        },
+      })
+    );
   }
 
   handleViewDetails() {
-    const detailEvent = new CustomEvent('view_product_detail', {
-      bubbles: true,
-      composed: false,
-      detail: {
-        bikeId: this.bike.id,
-      },
-    });
-
-    this.dispatchEvent(detailEvent);
+    this.dispatchEvent(
+      new CustomEvent('view_product_detail', {
+        bubbles: true,
+        detail: {
+          bikeId: this.bike.id,
+        },
+      })
+    );
   }
 
   handleKeyDown(event) {
     // Handle Enter and Space key for accessibility
-    if (event.key === 'Enter' || event.key === ' ') {
+    if (event.key === KEYBOARD_KEYS.ENTER || event.key === KEYBOARD_KEYS.SPACE) {
       event.preventDefault();
       this.handleViewDetails();
     }
@@ -54,25 +54,27 @@ export default class BikeCard extends LightningElement {
 
   get currentImage() {
     // Use color-specific image if available, fallback to default image
-    if (this.bike?.images && this.selectedColor && this.bike.images[this.selectedColor]) {
-      const colorImages = this.bike.images[this.selectedColor];
-      // Use first image from array if it's an array, otherwise use as string
+    const colorImages = this.bike?.images?.[this.selectedColor];
+    if (colorImages) {
       return Array.isArray(colorImages) ? colorImages[0] : colorImages;
     }
-    return this.bike?.image || 'https://placehold.co/300x200';
+    return this.bike?.image || DEFAULT_IMAGE_URL;
   }
 
-  get formattedPrice() {
+  // Utility method for formatting currency
+  formatCurrency(amount) {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
-    }).format(this.bike?.price || 0);
+    }).format(amount || 0);
+  }
+
+  get formattedPrice() {
+    return this.formatCurrency(this.bike?.price);
   }
 
   get colorOptions() {
-    if (!this.bike?.colors) return [];
-
-    return this.bike.colors.map(color => ({
+    return (this.bike?.colors || []).map(color => ({
       label: color.charAt(0).toUpperCase() + color.slice(1),
       value: color,
       selected: this.selectedColor === color,
@@ -84,9 +86,9 @@ export default class BikeCard extends LightningElement {
   }
 
   get stockBadgeClass() {
-    return this.bike?.inStock
-      ? 'slds-badge slds-badge_lightest slds-theme_success'
-      : 'slds-badge slds-badge_lightest slds-theme_error';
+    const baseClasses = 'slds-badge slds-badge_lightest';
+    const themeClass = this.bike?.inStock ? 'slds-theme_success' : 'slds-theme_error';
+    return `${baseClasses} ${themeClass}`;
   }
 
   get colorSelectId() {
