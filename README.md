@@ -29,8 +29,8 @@ A professional bicycle store application built with Lightning Web Components (LW
 
 ```bash
 # Clone the repository
-git clone <repository-url>
-cd bicycle-store
+git clone https://github.com/dab/storefront-lwc.git
+cd storefront-lwc
 
 # Install dependencies
 npm install
@@ -71,23 +71,6 @@ This project is configured for automatic deployment to GitHub Pages using GitHub
    - The workflow will automatically build and deploy your app
    - Your site will be available at: `https://[username].github.io/[repository-name]`
 
-#### Manual Deployment
-
-```bash
-# Build the project
-npm run build
-
-# The dist/ folder contains all files needed for deployment
-# Upload the contents of dist/ to your web server
-```
-
-### Other Hosting Platforms
-
-The built application in `dist/` is a static website that can be deployed to:
-- Netlify
-- Vercel
-- Heroku (with static buildpack)
-- Any static file hosting service
 
 ## Project Structure
 
@@ -123,24 +106,6 @@ src/
 - **Efficient Rendering**: Component-based updates
 - **Optimized Assets**: SLDS assets properly bundled
 - **Clean Code**: ESLint and Prettier for code quality
-
-## Browser Support
-
-This application supports modern browsers with ES2015+ support:
-- Chrome 61+
-- Firefox 63+
-- Safari 12+
-- Edge 79+
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature-name`
-3. Make your changes
-4. Run tests: `npm run lint`
-5. Commit your changes: `git commit -m 'Add feature'`
-6. Push to the branch: `git push origin feature-name`
-7. Submit a pull request
 
 ## License
 

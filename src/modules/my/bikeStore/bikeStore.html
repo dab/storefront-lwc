@@ -1,5 +1,16 @@
 <template>
   <div class="bike-store">
+    <!-- Cart Summary (Fixed Position) -->
+    <div class="cart-summary-fixed">
+      <my-cart-summary
+        cart-items={cartState.items}
+        cart-total={cartState.total}
+        cart-count={cartState.count}
+        onupdate_cart={handleUpdateCart}
+      >
+      </my-cart-summary>
+    </div>
+
     <!-- Product Detail View -->
     <template if:true={isDetailView}>
       <my-bike-detail
@@ -166,16 +177,5 @@
         <div class="mobile-filter-overlay" onclick={handleToggleMobileFilters}></div>
       </template>
     </template>
-
-    <!-- Cart Summary (Fixed Position) -->
-    <div class="cart-summary-fixed">
-      <my-cart-summary
-        cart-items={cartState.items}
-        cart-total={cartState.total}
-        cart-count={cartState.count}
-        onupdate_cart={handleUpdateCart}
-      >
-      </my-cart-summary>
-    </div>
   </div>
 </template>
