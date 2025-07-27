@@ -1,6 +1,11 @@
 import { LightningElement, track } from 'lwc';
 import cartStore from 'my/cartStore';
 
+// Constants
+const PRICE_RANGE_MIN = 0;
+const PRICE_RANGE_MAX = 10000;
+const ITEMS_PER_PAGE = 6;
+
 export default class BikeStore extends LightningElement {
   bikes = [];
   filteredBikes = [];
@@ -15,7 +20,7 @@ export default class BikeStore extends LightningElement {
   @track activeFilters = {
     type: '',
     brand: '',
-    priceRange: { min: 0, max: 10000 },
+    priceRange: { min: PRICE_RANGE_MIN, max: PRICE_RANGE_MAX },
   };
 
   sortBy = 'popularity';
@@ -30,7 +35,7 @@ export default class BikeStore extends LightningElement {
   errorMessage = '';
 
   // Pagination
-  itemsPerPage = 6;
+  itemsPerPage = ITEMS_PER_PAGE;
   currentPage = 1;
 
   // Private fields using conventional naming
@@ -76,16 +81,16 @@ export default class BikeStore extends LightningElement {
   }
 
   _subscribeToCart() {
-    this._unsubscribeCart = cartStore.subscribe(state => {
-      this.cartState = state;
-    });
-
     // Get initial state
     this.cartState = {
       items: cartStore.getItems(),
       total: cartStore.getTotal(),
       count: cartStore.getCount(),
     };
+
+    this._unsubscribeCart = cartStore.subscribe(state => {
+      this.cartState = state;
+    });
   }
 
   async loadBikes() {
@@ -139,6 +144,7 @@ export default class BikeStore extends LightningElement {
   handleFilterChange(event) {
     const { filterType, value } = event.detail;
 
+    // Create new object for immutability
     this.activeFilters = {
       ...this.activeFilters,
       [filterType]: value,
@@ -153,7 +159,7 @@ export default class BikeStore extends LightningElement {
     if (filterType === 'priceRange') {
       this.activeFilters = {
         ...this.activeFilters,
-        priceRange: { min: 0, max: 10000 },
+        priceRange: { min: PRICE_RANGE_MIN, max: PRICE_RANGE_MAX },
       };
     } else {
       this.activeFilters = {
@@ -169,7 +175,7 @@ export default class BikeStore extends LightningElement {
     this.activeFilters = {
       type: '',
       brand: '',
-      priceRange: { min: 0, max: 10000 },
+      priceRange: { min: PRICE_RANGE_MIN, max: PRICE_RANGE_MAX },
     };
     this.applyFiltersAndSort();
   }
@@ -258,8 +264,8 @@ export default class BikeStore extends LightningElement {
     return (
       this.activeFilters.type ||
       this.activeFilters.brand ||
-      this.activeFilters.priceRange.min > 0 ||
-      this.activeFilters.priceRange.max < 10000
+      this.activeFilters.priceRange.min > PRICE_RANGE_MIN ||
+      this.activeFilters.priceRange.max < PRICE_RANGE_MAX
     );
   }
 
@@ -267,7 +273,11 @@ export default class BikeStore extends LightningElement {
     let count = 0;
     if (this.activeFilters.type) count++;
     if (this.activeFilters.brand) count++;
-    if (this.activeFilters.priceRange.min > 0 || this.activeFilters.priceRange.max < 10000) count++;
+    if (
+      this.activeFilters.priceRange.min > PRICE_RANGE_MIN ||
+      this.activeFilters.priceRange.max < PRICE_RANGE_MAX
+    )
+      count++;
     return count;
   }
 
