@@ -1,4 +1,4 @@
-import lwcConfig from '@salesforce/eslint-config-lwc/base.js';
+import lwcConfig from '@salesforce/eslint-config-lwc/recommended.js';
 import babelParser from '@babel/eslint-parser';
 
 export default [

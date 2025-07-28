@@ -96,6 +96,9 @@ export default class BikeDetail extends LightningElement {
           event.preventDefault();
           this.handleNextImage();
           break;
+        default:
+          // No action needed for other keys
+          break;
       }
     }
   }

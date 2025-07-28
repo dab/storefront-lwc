@@ -30,24 +30,23 @@ class CartStore {
       // Increase quantity of existing item
       this.updateQuantity(existingItem.cartId, existingItem.quantity + quantity);
       return existingItem.cartId;
-    } else {
-      // Add new item with better ID generation
-      const cartId = this._generateCartId();
-      const item = {
-        ...bike,
-        cartId,
-        selectedColor,
-        quantity,
-        lineTotal: bike.price * quantity,
-        image: this._getColorImage(bike, selectedColor),
-      };
-
-      this._items.set(cartId, item);
-      this._markDirty();
-      this._saveToStorage();
-      this._notifyListeners();
-      return cartId;
     }
+    // Add new item with better ID generation
+    const cartId = this._generateCartId();
+    const item = {
+      ...bike,
+      cartId,
+      selectedColor,
+      quantity,
+      lineTotal: bike.price * quantity,
+      image: this._getColorImage(bike, selectedColor),
+    };
+
+    this._items.set(cartId, item);
+    this._markDirty();
+    this._saveToStorage();
+    this._notifyListeners();
+    return cartId;
   }
 
   // Update item quantity
